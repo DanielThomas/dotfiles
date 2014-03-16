@@ -1,0 +1,1 @@
+export JAVA_HOME GROOVY_HOME

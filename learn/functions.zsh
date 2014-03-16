@@ -1,14 +1,5 @@
 ## For details see http://silicon.pd.local/display/eng/HOWTO+PostgreSQL+for+Learn+-+Developer+Installation#HOWTOPostgreSQLforLearn-DeveloperInstallation-SwitchingEnvironments ##
 
-LEARN_MAINLINE=~/Code/learn-mainline
-BB_DEVELOPER_CONFIG_PREFIX=$LEARN_MAINLINE/build/developer/config/users/dthomas/dthomas
-BB_DEVELOPER_CONFIG_DEFAULT="$BB_DEVELOPER_CONFIG_PREFIX-mac.properties"
-BLACKBOARD_HOME_DEFAULT=/usr/local/blackboard
-BLACKBOARD_HOME=$BLACKBOARD_HOME_DEFAULT
-BB_DEVELOPER_CONFIG=$BB_DEVELOPER_CONFIG_DEFAULT
-
-## Functions ##
-
 function get_bbconfig_property {
   get_bbconfig_property_from $BLACKBOARD_HOME $1
 }
@@ -92,23 +83,3 @@ function switchLearn {
   set_config_property $GRADLE_PROPERTIES b2DeployTarget "$(get_bbconfig_property bbconfig.frontend.protocol)://$(get_bbconfig_property bbconfig.frontend.fullhostname):$(get_bbconfig_property bbconfig.frontend.portnumber)"
   set_config_property $GRADLE_PROPERTIES b2DeployName $(get_bbconfig_property bbconfig.database.identifier)
 }
-
-vm_oracle=~/Documents/Virtual\ Machines.localized/rh6x64-vm000.vmwarevm/rh6x64-vm000.vmx
-vm_mssql=~/Documents/Virtual\ Machines.localized/Windows\ Server\ 2012.vmwarevm/Windows\ Server\ 2012.vmx
-
-function vmControl {
-  VMX_FILE=$(eval "echo \$vm_$2")
-  if [[ -f $VMX_FILE ]]; then
-    if [[ "start" == "$1" ]]; then
-      echo "Starting Fusion VM $2 ($VMX_FILE)"
-      /Applications/VMware\ Fusion.app/Contents/Library/vmrun -T fusion start $VMX_FILE nogui
-    elif [[ "stop" == "$1" ]]; then
-      echo "Stopping Fusion VM $2 ($VMX_FILE)"
-      /Applications/VMware\ Fusion.app/Contents/Library/vmrun -T fusion stop $VMX_FILE soft
-    else
-      echo Unknown operation $1
-    fi
-  fi
-}
-
-switchLearn

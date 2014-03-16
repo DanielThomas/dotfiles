@@ -32,7 +32,7 @@ link_files () {
 }
 
 install_dotfiles () {
-  info 'installing dotfiles'
+  info 'Installing dotfiles'
 
   overwrite_all=false
   backup_all=false
@@ -98,19 +98,50 @@ install_dotfiles () {
   done
 }
 
-install_dotfiles
+run_installers () {
+  info 'Running installers'
+  echo ''
+  find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+  echo ''
+}
 
-# If we're on a Mac, let's install and setup homebrew.
-if [ "$(uname -s)" == "Darwin" ]
-then
-  info "Installing dependencies"
-  if source bin/dot > /tmp/dotfiles-dot 2>&1
-  then
-    success "dependencies installed"
-  else
-    fail "error installing dependencies"
+install_formulas () {
+  info 'Updating Homebrew: '
+  brew update
+  info 'Checking Homebrew is healthy: '
+
+  if ! brew doctor; then
+    fail "There's a problem with Homebrew. Fix it and confirm with 'brew doctor' before continuing"
   fi
-fi
 
-echo ''
-echo '  All installed!'
+  echo ''
+  for file in `find $DOTFILES_ROOT -maxdepth 2 -name install.homebrew`
+  do
+    for formula in `cat $file`
+    do
+      install_formula $formula
+    done
+  done
+}
+
+install_formula () {
+  formula=$1
+  if brew ls --versions $formula | grep -q $formula; then
+    success "$1 is already installed"
+  else
+    if brew install $formula
+    then
+      success "Installed $formula"
+    else
+      fail "Failed to install $formula"
+    fi
+  fi
+}
+
+info "Bootstrapping dotfiles"
+
+install_dotfiles
+run_installers
+install_formulas
+
+success 'Bootstrap complete!'

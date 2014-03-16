@@ -1,0 +1,34 @@
+From d9984398b43f6e07e9c05fe24b0c770d6c298441 Mon Sep 17 00:00:00 2001
+From: Danny Thomas <Danny.Thomas@blackboard.com>
+Date: Sat, 8 Mar 2014 15:17:26 +0000
+Subject: [PATCH] Customize Agnoster with custom prompt
+
+---
+ themes/agnoster.zsh-theme | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/themes/agnoster.zsh-theme b/themes/agnoster.zsh-theme
+index 85b846c..06adb9c 100644
+--- a/themes/agnoster.zsh-theme
++++ b/themes/agnoster.zsh-theme
+@@ -156,6 +156,9 @@ prompt_status() {
+   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
+ }
+ 
++prompt_custom() {
++}
++
+ ## Main prompt
+ build_prompt() {
+   RETVAL=$?
+@@ -165,6 +168,7 @@ build_prompt() {
+   prompt_dir
+   prompt_git
+   prompt_hg
++  prompt_custom
+   prompt_end
+ }
+ 
+-- 
+1.9.0
+

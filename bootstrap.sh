@@ -84,7 +84,7 @@ install_dotfiles () {
   done
 
   # fonts
-  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.otf); do
+  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.otf -or -name \*.ttf -or -name \*.ttc); do
     file_dest="$HOME/Library/Fonts/$(basename $file_source)"
     install_file copy $file_source $file_dest
   done

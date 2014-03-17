@@ -27,7 +27,7 @@ The repository is ordered by topic. Refer to the readme files in the individual 
 
 ## How it works ##
 
-Files are processed automatically by `.zshrc` or the bootstrap process depending on their extension. Scripts set the environment, manage files, perform installation or enable plugins depending on the file name or extension.
+Files are processed automatically by `.zshrc` or the bootstrap process depending on their extension. Scripts set the environment, manage files, perform installation or enable plugins depending on the file name or extension. Bootstrap can be safely run repeatedly, you'll be prompted for the action you want to take if a destination file or directory already exists.
 
 ### Environment ###
 

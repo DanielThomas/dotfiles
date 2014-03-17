@@ -5,15 +5,18 @@
 source scripts/common.sh
 
 link_files () {
-  case "$3" in
+  case "$1" in
     link )
-      link_file $1 $2
+      link_file $2 $3
+      ;;
+    copy )
+      copy_file $2 $3
       ;;
     git )
-      git_clone $1 $2
+      git_clone $2 $3
       ;;
     * )
-      fail "Unknown link type: $3"
+      fail "Unknown link type: $1"
       ;;
   esac
 }
@@ -21,6 +24,16 @@ link_files () {
 link_file () {
   ln -s $1 $2
   success "linked $1 to $2"
+}
+
+copy_file () {
+  cp $1 $2
+  success "copied $1 to $2"
+}
+
+open_file () {
+  open $1
+  success "opened $1"
 }
 
 git_clone () {
@@ -52,21 +65,35 @@ install_dotfiles () {
   backup_all=false
   skip_all=false
 
-  for file_source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`; do
+  # symlinks
+  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink); do
     file_dest="$HOME/.`basename \"${file_source%.*}\"`"
-    install_file $file_source $file_dest link
+    install_file link $file_source $file_dest
   done
 
-  for file_source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.gitrepo`; do
+  # git repositories
+  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.gitrepo); do
     file_dest="$HOME/.`basename \"${file_source%.*}\"`"
-    install_file $file_source $file_dest git
+    install_file git $file_source $file_dest
+  done
+
+  # preferences
+  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.plist); do
+    file_dest="$HOME/Library/Preferences/`basename $file_source`"
+    install_file copy $file_source $file_dest
+  done
+
+  # fonts
+  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.otf); do
+    file_dest="$HOME/Library/Fonts/$(basename $file_source)"
+    install_file copy $file_source $file_dest
   done
 }
 
 install_file () {
-  file_source=$1
-  file_dest=$2
-  file_type=$3
+  file_type=$1
+  file_source=$2
+  file_dest=$3
   if [ -f $file_dest ] || [ -d $file_dest ]; then
     overwrite=false
     backup=false
@@ -105,19 +132,30 @@ install_file () {
     fi
 
     if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]; then
-      link_files $file_source $file_dest $file_type
+      link_files $file_type $file_source $file_dest
     else
       success "skipped $file_source"
     fi
 
   else
-    link_files $file_source $file_dest $file_type
+    link_files $file_type $file_source $file_dest
   fi
 }
 
 run_installers () {
   info 'running installers'
   find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+
+  info 'opening files'
+  OLD_IFS=$IFS
+  IFS=''
+  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.open); do
+    for file in `cat $file_source`; do
+      expanded_file=$(eval echo $file)
+      open_file $expanded_file
+    done
+  done
+  IFS=$OLD_IFS
 }
 
 install_formulas () {
@@ -129,8 +167,7 @@ install_formulas () {
     fail "there's a problem with Homebrew. Fix it and confirm with 'brew doctor' before continuing"
   fi
 
-  for file in `find $DOTFILES_ROOT -maxdepth 2 -name install.homebrew`
-  do
+  for file in `find $DOTFILES_ROOT -maxdepth 2 -name install.homebrew`; do
     for formula in `cat $file`; do
       install_formula $formula
     done

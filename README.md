@@ -7,12 +7,13 @@ Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 ## Prerequisites ##
 
 - Set `zsh` as your default shell: `chsh -s /bin/zsh`. Optionally, use Homebew to install the latest zsh and use `/usr/local/bin/zsh`
-- For best results, use iTerm2 as your terminal
+- For best results, use iTerm2 as your terminal. Fonts, color schemes and settings are automatically installed for you
 
 ## Install ##
 
 - Clone the repository `git clone ssh://git@stash.cloud.local/~dthomas/dotfiles.git ~/.dotfiles`
 - Run the bootstrap to install the files `cd ~/.dotfiles; ./bootstrap.sh`
+- Restart your terminal
 
 ## Update ##
 

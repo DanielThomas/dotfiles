@@ -1,6 +1,6 @@
 # Danny's dotfiles #
 
-Opinionated dotfiles repository for Mac OS with zsh, solarised and oh-my-zsh with the Agnoster theme.
+Opinionated dotfiles repository for Mac OS with zsh. Including Homebrew, Solarised and oh-my-zsh with the Agnoster theme.
 
 Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 

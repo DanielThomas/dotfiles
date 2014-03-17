@@ -1,2 +1,2 @@
-export ANSIBLE_HOSTS=/Users/dthomas/Code/cloud-docker-build/ansible/inventory
+# No moo
 export ANSIBLE_NOCOWS=1

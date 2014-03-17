@@ -25,3 +25,9 @@ Installation steps during bootstrap can be handled in three ways:
 - `install.sh`: An installation shellscript, executed by bootstrap
 - `install.homebrew`: A list of Homebrew formulas to install
 - `install.open`: A list of files
+
+## Private configuration ##
+
+Use `~/.localrc` to configure anything that you want to keep private. By default, set `DEFAULT_USER` to your main username:
+
+`export DEFAULT_USER=dthomas`

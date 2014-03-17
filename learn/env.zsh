@@ -1,5 +1,5 @@
 export LEARN_MAINLINE=~/Code/learn-mainline
-export BB_DEVELOPER_CONFIG_PREFIX=$LEARN_MAINLINE/build/developer/config/users/dthomas/dthomas
+export BB_DEVELOPER_CONFIG_PREFIX=$LEARN_MAINLINE/build/developer/config/users/$DEFAULT_USER/$DEFAULT_USER
 export BB_DEVELOPER_CONFIG_DEFAULT="$BB_DEVELOPER_CONFIG_PREFIX-mac.properties"
 export BLACKBOARD_HOME_DEFAULT=/usr/local/blackboard
 export BLACKBOARD_HOME=$BLACKBOARD_HOME_DEFAULT

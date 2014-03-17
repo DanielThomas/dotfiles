@@ -25,6 +25,11 @@ then
   source ~/.localrc
 fi
 
+if [ -z "$DEFAULT_USER" ]; then
+    echo "Please set DEFAULT_USER in your ~/.localrc"
+    exit 1
+fi
+
 # all of our zsh files
 typeset -U config_files
 config_files=($DOTFILES/**/*.zsh)

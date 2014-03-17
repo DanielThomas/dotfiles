@@ -27,7 +27,7 @@ The repository is ordered by topic. Refer to the readme files in the individual 
 
 ## How it works ##
 
-Files are processed automatically by `.zshrc` or the bootstrap process depending on their extension. Scripts set the environment, manage files or perform installation steps depending on the file name or extension.
+Files are processed automatically by `.zshrc` or the bootstrap process depending on their extension. Scripts set the environment, manage files, perform installation or enable plugins depending on the file name or extension.
 
 ### Environment ###
 
@@ -54,3 +54,8 @@ Installation steps during bootstrap can be handled in three ways:
 - `install.sh`: An installation shellscript
 - `install.homebrew`: A list of Homebrew formulas to install
 - `install.open`: A list of files to be handled by the default application association using the `open` command
+
+### Plugins ###
+
+- All topic directory names are implicitly added to the plugin list, so you get `osx` and `brew` automatically
+- Plugins listed in `oh-my-zsh.plugins` files are read and added to this list

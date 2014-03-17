@@ -185,9 +185,18 @@ install_formula () {
   fi
 }
 
+create_localrc () {
+  LOCALRC=$HOME/.localrc
+  if [ ! -f "$LOCALRC" ]; then
+    echo "DEFAULT_USER=$USER" > $LOCALRC
+    success "created $LOCALRC"
+  fi
+}
+
 install_dotfiles
 run_installers
 install_formulas
+create_localrc
 
 info 'complete!'
 echo ''

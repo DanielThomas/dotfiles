@@ -15,14 +15,20 @@ Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 - Run the bootstrap to install the files `cd ~/.dotfiles; ./bootstrap.sh`
 - Restart your terminal
 
+Use `~/.localrc` to configure anything that you want to keep outside of the repository or private.
+
 ## Update ##
 
 - `git pull --rebase` the repository periodically
 - `cd ~/.dotfiles; ./update.sh` to update any cloned git repositories
 
-## Components ##
+## Features ##
 
-Files are processed automatically depending on their extension, they set the environment, install files or perform post-installation steps depending on the file name or extension.
+The repository is ordered by topic. Refer to the readme files in the individual topic directories for details of the features they provide.
+
+## How it works ##
+
+Files are processed automatically by `.zshrc` or the bootstrap process depending on their extension. Scripts set the environment, manage files or perform installation steps depending on the file name or extension.
 
 ### Environment ###
 
@@ -32,9 +38,9 @@ These files set your shell's environment:
 - `*.zsh`: Get loaded into your environment
 - `completion.zsh`: Loaded last, and expected to setup autocomplete
 
-## Files ##
+### Files ###
 
-These cause files to be created in your home directory:
+The following extensions will cause files created in your home directory:
 
 - `*.symlink`: Automaticlly symlinked into your `$HOME` as a dot file during bootstrap. For example, `myfile.symlink` will be linked as `$HOME/.myfile`
 - `*.gitrepo`: Contains a URL to a Git repository to be cloned as a dotfile. For example `myrepo.symlink` will be cloned to `$HOME/.myrepo`
@@ -46,12 +52,6 @@ These cause files to be created in your home directory:
 
 Installation steps during bootstrap can be handled in three ways:
 
-- `install.sh`: An installation shellscript, executed by bootstrap
+- `install.sh`: An installation shellscript
 - `install.homebrew`: A list of Homebrew formulas to install
 - `install.open`: A list of files to be handled by the default application association using the `open` command
-
-## Private configuration ##
-
-Use `~/.localrc` to configure anything that you want to keep private. By default, set `DEFAULT_USER` to your main username:
-
-`export DEFAULT_USER=dthomas`

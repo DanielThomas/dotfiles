@@ -4,6 +4,11 @@ Opinionated dotfiles repository for Mac OS with zsh, solarised and oh-my-zsh wit
 
 Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 
+## Prerequisites ##
+
+- Make `zsh` your default shell
+- Install iTerm2
+
 ## Install ##
 
 - Clone the repository `git clone ssh://git@stash.cloud.local/~dthomas/dotfiles.git ~/.dotfiles`

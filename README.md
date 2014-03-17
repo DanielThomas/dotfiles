@@ -11,16 +11,15 @@ Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 
 ## Install ##
 
-- Clone the repository `git clone ssh://git@stash.cloud.local/~dthomas/dotfiles.git ~/.dotfiles`
+- For a quick start, clone the repository `git clone ssh://git@stash.cloud.local/~dthomas/dotfiles.git ~/.dotfiles`
 - Run the bootstrap to install the files `cd ~/.dotfiles; ./bootstrap.sh`
 - Restart your terminal
 
-Use `~/.localrc` to configure anything that you want to keep outside of the repository or private.
+Use `~/.localrc` to configure anything that you want to keep outside of the repository or private. For more than the most basic use, you should fork the repository as a basis for your own.
 
 ## Update ##
 
-- `git pull --rebase` the repository periodically
-- `cd ~/.dotfiles; ./update.sh` to update any cloned git repositories
+Use `cd ~/.dotfiles; ./update.sh` to automatically update cloned git repositories.
 
 ## Features ##
 

@@ -1,6 +1,3 @@
-vm_oracle=~/Documents/Virtual\ Machines.localized/rh6x64-vm000.vmwarevm/rh6x64-vm000.vmx
-vm_mssql=~/Documents/Virtual\ Machines.localized/Windows\ Server\ 2012.vmwarevm/Windows\ Server\ 2012.vmx
-
 function vmControl {
   VMX_FILE=$(eval "echo \$vm_$2")
   if [[ -f $VMX_FILE ]]; then

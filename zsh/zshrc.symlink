@@ -1,9 +1,14 @@
 ## oh-my-zsh ##
+
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="agnoster"
+
 alias zshconfig="st ~/.zshrc"
 alias ohmyzsh="st ~/.oh-my-zsh"
+
+# Disable auto-update, we're using a manual install
 DISABLE_AUTO_UPDATE="true"
+
 plugins=(osx brew git sublime ant mvn autojump postgres)
 source $ZSH/oh-my-zsh.sh
 

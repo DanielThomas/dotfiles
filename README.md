@@ -6,8 +6,8 @@ Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 
 ## Prerequisites ##
 
-- Make `zsh` your default shell
-- Install iTerm2
+- Set `zsh` as your default shell: `chsh -s /bin/zsh`. Optionally, use Homebew to install the latest zsh and use `/usr/local/bin/zsh`
+- For best results, use iTerm2 as your terminal
 
 ## Install ##
 

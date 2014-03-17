@@ -2,7 +2,7 @@
 alias ls="gls -F --color"
 alias l="ls -lAh --color"
 alias ll="ls -l --color"
-alias la="gla -A --color"
+alias la="ls -A --color"
 
 # allow for common cd typo
 alias cd..="cd .."

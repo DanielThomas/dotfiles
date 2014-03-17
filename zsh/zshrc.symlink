@@ -1,13 +1,12 @@
 ZSH=$HOME/.oh-my-zsh
 DOTFILES=$HOME/.dotfiles
 
+# oh-mh-zsh theme
 ZSH_THEME="agnoster"
 
+# oh-my-zsh aliases
 alias zshconfig="st ~/.zshrc"
 alias ohmyzsh="st ~/.oh-my-zsh"
-
-# disable auto-update, we're using a manual install
-DISABLE_AUTO_UPDATE="true"
 
 # define oh-my-zsh plugins implicitly based on the topics
 plugins=("${(@f)$(find $DOTFILES -not -name '.git' -d 1 -type d -exec basename {} \;)}")

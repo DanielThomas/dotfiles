@@ -39,7 +39,7 @@ These files set your shell's environment:
 
 ### Files ###
 
-The following extensions will cause files created in your home directory:
+The following extensions will cause files to be created in your home directory:
 
 - `*.symlink`: Automaticlly symlinked into your `$HOME` as a dot file during bootstrap. For example, `myfile.symlink` will be linked as `$HOME/.myfile`
 - `*.gitrepo`: Contains a URL to a Git repository to be cloned as a dotfile. For example `myrepo.symlink` will be cloned to `$HOME/.myrepo`

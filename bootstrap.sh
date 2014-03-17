@@ -149,7 +149,7 @@ run_installers () {
   info 'opening files'
   OLD_IFS=$IFS
   IFS=''
-  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.open); do
+  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name install.open); do
     for file in `cat $file_source`; do
       expanded_file=$(eval echo $file)
       open_file $expanded_file

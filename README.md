@@ -11,7 +11,7 @@ Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 
 ## Install ##
 
-- For a quick start, clone the repository `git clone ssh://git@stash.cloud.local/~dthomas/dotfiles.git ~/.dotfiles`
+- For a quick start, clone the repository `git clone <repopath> ~/.dotfiles`
 - Run the bootstrap to install the files `cd ~/.dotfiles; ./bootstrap.sh`
 - Restart your terminal
 

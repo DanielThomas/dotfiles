@@ -39,6 +39,9 @@ do
   source $file
 done
 
+# put the bin/ directory first on the path
+export PATH=$DOTFILES/bin:$PATH
+
 # load everything but the path and completion files
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
 do

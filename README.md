@@ -6,8 +6,9 @@ Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 
 ## Prerequisites ##
 
-- Set `zsh` as your default shell: `chsh -s /bin/zsh`. Optionally, use Homebew to install the latest zsh and use `/usr/local/bin/zsh`
-- For best results, use iTerm2 as your terminal. Fonts, color schemes and settings are automatically installed for you
+- Set `zsh` as your default shell: `chsh -s /bin/zsh`
+- Optionally, use Homebew to install the latest zsh and use `/usr/local/bin/zsh`. In this case, you need to add this path to `/etc/shells` before running `chsh`
+- Use Terminal for installation. Fonts, color schemes and preferences lists are automatically installed, and iTerm2 will overwrite the new settings on exit
 
 ## Install ##
 

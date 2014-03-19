@@ -159,6 +159,11 @@ run_installers () {
 }
 
 install_formulas () {
+  # assume that the installer did it's job, and use the default path for brew if it's not there already
+  if ! test $(which brew); then
+    source $DOTFILES_ROOT/brew/path.zsh
+  fi
+
   info 'updating homebrew'
   brew update >> /dev/null
   info 'checking homebrew is healthy'

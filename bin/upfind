@@ -1,0 +1,8 @@
+#!/bin/bash
+# Find in current or parent directories
+# http://superuser.com/questions/455723/is-there-an-upwards-find
+set -e
+while [[ $PWD != / ]] ; do
+  find "$PWD" -maxdepth 1 "$@"
+  cd ..
+done

@@ -5,7 +5,9 @@ function get_bbconfig_property {
 }
 
 function get_default_bbconfig_property {
-  get_bbconfig_property_from $BLACKBOARD_HOME_DEFAULT $1
+  if [ -d $BLACKBOARD_HOME_DEFAULT ]; then
+    get_bbconfig_property_from $BLACKBOARD_HOME_DEFAULT $1
+  fi
 }
 
 function get_bbconfig_property_from {
@@ -29,7 +31,7 @@ function get_bbconfig_property_from {
 # Customise the Agnoster prompt
 prompt_custom() {
   cwd=$(pwd)
-  if [[ $cwd =~ "^($LEARN_MAINLINE|$BLACKBOARD_HOME).*" ]]; then
+  if [[ -d $BLACKBOARD_HOME && $cwd =~ "^($LEARN_MAINLINE|$BLACKBOARD_HOME).*" ]]; then
     db_type=$(get_bbconfig_property bbconfig.database.type)
     db_type_default=$(get_default_bbconfig_property bbconfig.database.type)
     if [ "$db_type" != "$db_type_default" ]; then
@@ -61,7 +63,10 @@ function learn {
 }
 
 function switchLearn {
-  vmControl stop $(get_bbconfig_property bbconfig.database.type)
+  if [ -d $BLACKBOARD_HOME ]; then
+    vmControl stop $(get_bbconfig_property bbconfig.database.type)
+  fi
+
   if (( $# == 0 )); then
     export BLACKBOARD_HOME=$BLACKBOARD_HOME_DEFAULT
     export BB_DEVELOPER_CONFIG=$BB_DEVELOPER_CONFIG_DEFAULT
@@ -71,15 +76,22 @@ function switchLearn {
     vmControl start $1
   fi
 
-  BLACKBOARD_TOOLS=$BLACKBOARD_HOME/tools/admin
-  alias bb="cd $BLACKBOARD_HOME"
-  alias sc="$BLACKBOARD_TOOLS/ServiceController.sh"
-  alias b2m="$BLACKBOARD_TOOLS/B2Manager.sh"
-  alias pcu="$BLACKBOARD_TOOLS/PushConfigUpdates.sh"
+  if [ -d $BLACKBOARD_HOME ]; then
+    BLACKBOARD_TOOLS=$BLACKBOARD_HOME/tools/admin
+    alias bb="cd $BLACKBOARD_HOME"
+    alias sc="$BLACKBOARD_TOOLS/ServiceController.sh"
+    alias b2m="$BLACKBOARD_TOOLS/B2Manager.sh"
+    alias pcu="$BLACKBOARD_TOOLS/PushConfigUpdates.sh"
 
-  GRADLE_PROPERTIES=~/.gradle/gradle.properties
-  set_config_property $GRADLE_PROPERTIES bbHome "$BLACKBOARD_HOME"
-  set_config_property $GRADLE_PROPERTIES bbTestServiceConfig "$BLACKBOARD_HOME/config/service-config-unittest.properties"
-  set_config_property $GRADLE_PROPERTIES b2DeployTarget "$(get_bbconfig_property bbconfig.frontend.protocol)://$(get_bbconfig_property bbconfig.frontend.fullhostname):$(get_bbconfig_property bbconfig.frontend.portnumber)"
-  set_config_property $GRADLE_PROPERTIES b2DeployName $(get_bbconfig_property bbconfig.database.identifier)
+    GRADLE_PROPERTIES=~/.gradle/gradle.properties
+    GRADLE_LOCK=$GRADLE_PROPERTIES.lock
+    lockfile $GRADLE_LOCK
+    set_config_property $GRADLE_PROPERTIES bbHome "$BLACKBOARD_HOME"
+    set_config_property $GRADLE_PROPERTIES bbTestServiceConfig "$BLACKBOARD_HOME/config/service-config-unittest.properties"
+    set_config_property $GRADLE_PROPERTIES b2DeployTarget "$(get_bbconfig_property bbconfig.frontend.protocol)://$(get_bbconfig_property bbconfig.frontend.fullhostname):$(get_bbconfig_property bbconfig.frontend.portnumber)"
+    set_config_property $GRADLE_PROPERTIES b2DeployName $(get_bbconfig_property bbconfig.database.identifier)
+    rm -f $GRADLE_LOCK
+  else
+    echo "Could not switch Learn instances, $BLACKBOARD_HOME does not exist"
+  fi
 }

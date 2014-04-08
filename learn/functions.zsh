@@ -97,6 +97,7 @@ function switchLearn {
     alias sc="$BLACKBOARD_TOOLS/ServiceController.sh"
     alias b2m="$BLACKBOARD_TOOLS/B2Manager.sh"
     alias pcu="$BLACKBOARD_TOOLS/PushConfigUpdates.sh"
+    alias lso='tail -f $(gls -t $BLACKBOARD_HOME/logs/tomcat/stdout-stderr-* | head -1)'
 
     GRADLE_PROPERTIES=~/.gradle/gradle.properties
     GRADLE_LOCK=$GRADLE_PROPERTIES.lock

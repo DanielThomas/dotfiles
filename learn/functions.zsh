@@ -54,17 +54,32 @@ function set_config_property {
 function learn {
   if (( $# == 0 )); then
     echo "Switching to default Learn instance"
+    if [[ -d $BLACKBOARD_HOME && $BLACKBOARD_HOME != $BLACKBOARD_HOME_DEFAULT ]]; then
+      stopLearn
+    fi
+    switchLearn
   else
     echo "Switching to '$1' Learn instance"
+    switchLearn $1
+    startLearn
   fi
 
-  switchLearn $1
   cd $LEARN_MAINLINE/build/developer
+}
+
+function startLearn {
+  echo "Starting Learn instance at $BLACKBOARD_HOME"
+  sc services.start
+}
+
+function stopLearn {
+  echo "Stopping Learn instance at $BLACKBOARD_HOME"
+  sc services.stop
 }
 
 function switchLearn {
   if [ -d $BLACKBOARD_HOME ]; then
-    vmControl stop $(get_bbconfig_property bbconfig.database.type)
+    vmControl suspend $(get_bbconfig_property bbconfig.database.type)
   fi
 
   if (( $# == 0 )); then

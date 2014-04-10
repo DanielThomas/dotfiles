@@ -1,0 +1,4 @@
+#!/bin/bash
+# List files for a given commit
+set -e
+git diff-tree --no-commit-id --name-only -r $@

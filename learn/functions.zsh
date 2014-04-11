@@ -69,12 +69,12 @@ function learn {
 
 function startLearn {
   echo "Starting Learn instance at $BLACKBOARD_HOME"
-  sc services.start
+  $BLACKBOARD_TOOLS/ServiceController.sh services.start
 }
 
 function stopLearn {
   echo "Stopping Learn instance at $BLACKBOARD_HOME"
-  sc services.stop
+  $BLACKBOARD_TOOLS/ServiceController.sh services.stop
 }
 
 function switchLearn {

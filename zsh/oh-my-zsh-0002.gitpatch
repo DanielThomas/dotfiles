@@ -1,0 +1,28 @@
+From 392a9283511cb616cd9f3a3c9c816c13e3a3cf4d Mon Sep 17 00:00:00 2001
+From: Danny Thomas <Danny.Thomas@blackboard.com>
+Date: Sat, 3 May 2014 12:34:18 -0400
+Subject: [PATCH] Improve git prompt performance by having agnoster avoid
+ check-for-changes if oh-my-zsh.hide-status is 1
+
+---
+ themes/agnoster.zsh-theme | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/themes/agnoster.zsh-theme b/themes/agnoster.zsh-theme
+index e1d9bed..74f9d58 100644
+--- a/themes/agnoster.zsh-theme
++++ b/themes/agnoster.zsh-theme
+@@ -94,7 +94,9 @@ prompt_git() {
+ 
+     zstyle ':vcs_info:*' enable git
+     zstyle ':vcs_info:*' get-revision true
+-    zstyle ':vcs_info:*' check-for-changes true
++    if [[ "$(command git config --get oh-my-zsh.hide-status)" != "1" ]]; then
++      zstyle ':vcs_info:*' check-for-changes true
++    fi
+     zstyle ':vcs_info:*' stagedstr '✚'
+     zstyle ':vcs_info:git:*' unstagedstr '●'
+     zstyle ':vcs_info:*' formats ' %u%c'
+-- 
+1.9.2
+

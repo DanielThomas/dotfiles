@@ -29,6 +29,11 @@ if [ -z "$DEFAULT_USER" ]; then
   exit 1
 fi
 
+# 10.10 seems to be handling default paths differently, causing duplicate PATH variables, temporary hack to deal with that
+ZSHPATH=$PATH
+unset PATH
+PATH=$ZSHPATH
+
 # all of our zsh files
 typeset -U config_files
 config_files=($DOTFILES/**/*.zsh)

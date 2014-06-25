@@ -94,10 +94,18 @@ function switchLearn {
   if [ -d $BLACKBOARD_HOME ]; then
     BLACKBOARD_TOOLS=$BLACKBOARD_HOME/tools/admin
     alias bb="cd $BLACKBOARD_HOME"
+    # Aliases for admin tools
     alias sc="$BLACKBOARD_TOOLS/ServiceController.sh"
     alias b2m="$BLACKBOARD_TOOLS/B2Manager.sh"
     alias pcu="$BLACKBOARD_TOOLS/PushConfigUpdates.sh"
+    # Follow the latest Tomcat standard out log
     alias lso='tail -f $(gls -t $BLACKBOARD_HOME/logs/tomcat/stdout-stderr-* | head -1)'
+    # Enable and disable assertions
+    alias lea='ssed -i "s/wrapper.java.additional.2=.*/wrapper.java.additional.2=-enableassertions/g" $BLACKBOARD_HOME/apps/tomcat/conf/wrapper.conf'
+    alias lda='ssed -i "s/wrapper.java.additional.2=.*/wrapper.java.additional.2=/g" $BLACKBOARD_HOME/apps/tomcat/conf/wrapper.conf'
+    # Fast kill and restart of Learn Tomcat (not instance specific)
+    alias lkill='pkill -9 -f WrapperStartStop'
+    alias lrestart='lkill && sc services.appserver.restart'
 
     GRADLE_PROPERTIES=~/.gradle/gradle.properties
     GRADLE_LOCK=$GRADLE_PROPERTIES.lock

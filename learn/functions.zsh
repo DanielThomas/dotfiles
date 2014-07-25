@@ -103,6 +103,9 @@ function switchLearn {
     # Enable and disable assertions
     alias lea='ssed -i "s/wrapper.java.additional.2=.*/wrapper.java.additional.2=-enableassertions/g" $BLACKBOARD_HOME/apps/tomcat/conf/wrapper.conf'
     alias lda='ssed -i "s/wrapper.java.additional.2=.*/wrapper.java.additional.2=/g" $BLACKBOARD_HOME/apps/tomcat/conf/wrapper.conf'
+    # Enable and disable YourKit
+    alias leyk='ssed -i "s/wrapper.java.additional.28=.*/wrapper.java.additional.28=\-agentpath:\/Applications\/YourKit.app\/bin\/mac\/libyjpagent.jnilib=probe_off=\*/g" $BLACKBOARD_HOME/apps/tomcat/conf/wrapper.conf'
+    alias ldyk='ssed -i "s/wrapper.java.additional.28=.*/wrapper.java.additional.28=/g" $BLACKBOARD_HOME/apps/tomcat/conf/wrapper.conf'
     # Fast kill and restart of Learn Tomcat (not instance specific)
     alias lkill='pkill -9 -f WrapperStartStop'
     alias lrestart='lkill && sc services.appserver.restart'

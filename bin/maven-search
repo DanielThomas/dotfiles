@@ -1,5 +1,5 @@
 #!/bin/bash
-for file in $(ls *.jar)
+for file in $@
 do
   sha1=$(openssl dgst -sha1 $file | awk '{print $2}')
   printf "Searching for %s %s..." $file $sha1

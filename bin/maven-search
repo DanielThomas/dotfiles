@@ -2,31 +2,27 @@
 for file in $@
 do
   sha1=$(openssl dgst -sha1 $file | awk '{print $2}')
-  printf "Searching for %s %s..." $file $sha1
 
   repo=http://search.maven.org
-  printf " %s" $repo
   central=$(curl -s $repo/solrsearch/select\?q\=1:"$sha1"\&rows\=20\&wt\=xml)
-  result=$(echo $central | xml sel -t -m "/response/result/doc/str[@name='id']" -v "concat(.,'|')")
+  result=$(echo $central | xml sel -t -m "/response/result/doc/str[@name='id']" -v "concat(.,' ')")
 
   if [[ ! "$result" ]]; then
     nexus_repos="http://maven.pd.local https://oss.sonatype.org https://repository.apache.org https://maven.java.net https://nexus.codehaus.org"
     for nexus_repo in $nexus_repos
     do
       repo=$nexus_repo
-      printf " %s" $repo
       nexus=$(curl -s $repo/service/local/data_index?sha1=$sha1)
-      result=$(echo $nexus | xml sel -t -m "/search-results/data/artifact" -v "concat(groupId,':',artifactId,':',version,'|')")
+      result=$(echo $nexus | xml sel -t -m "/search-results/data/artifact" -v "concat(groupId,':',artifactId,':',version)")
       if [[ "$result" ]]; then
         break
       fi
     done
   fi
 
-  echo
   if [[ ! "$result" ]]; then
-    echo "MISSING|$file"
+    echo "MISSING! $file"
   else
-    echo "FOUND|$file|$result"
+    echo "FOUND! ($repo) $file $result"
   fi
 done

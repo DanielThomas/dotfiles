@@ -108,7 +108,7 @@ function switchLearn {
     alias ldyk='ssed -i "s/wrapper.java.additional.28=.*/wrapper.java.additional.28=/g" $BLACKBOARD_HOME/apps/tomcat/conf/wrapper.conf'
     # Fast kill and restart of Learn Tomcat (not instance specific)
     alias lkill='pkill -9 -f WrapperStartStop'
-    alias lrestart='lkill && sc services.appserver.restart'
+    alias lrestart='lkill && sc services.appserver.stop && sc services.appserver.start'
 
     GRADLE_PROPERTIES=~/.gradle/gradle.properties
     GRADLE_LOCK=$GRADLE_PROPERTIES.lock

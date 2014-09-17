@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ ! -x ~/bin/crucible.py ]; then
+  echo "downloading crucible.py from crucible.pd.local"
+  mkdir -p ~/bin
+  curl -s -o ~/bin/crucible.py "http://crucible.pd.local/plugins/servlet/downloadReviewCLI"
+  chmod 755 ~/bin/crucible.py
+fi
+
+P4ROOT=$(git p4 branches | grep p4/master | awk '{print $3}')
+P4CHANGESET=$(git p4 branches | grep p4/master | sed -e 's|.*(||' -e 's|).*||')
+SHA=$(git rev-parse --short HEAD)
+ 
+git diff -U10 --no-prefix p4/master \
+  | grep -v -e ^diff -e ^index \
+  | sed -e "s|^--- |--- $P4ROOT|" -e "s|^+++ |+++ $P4ROOT|" \
+  > $SHA.patch
+
+echo "Upload $SHA.patch to http://fisheye.pd.local manually, or:"
+echo
+echo "  create new review:       ~/bin/crucible.py -f $SHA.patch -n AS-CR"
+echo "  update existing review:  ~/bin/crucible.py -f $SHA.patch -n AS-CR-1234"

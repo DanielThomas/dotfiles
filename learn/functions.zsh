@@ -33,8 +33,7 @@ prompt_custom() {
   cwd=$(pwd)
   if [[ -d $BLACKBOARD_HOME && $cwd =~ "^($LEARN_MAINLINE|$BLACKBOARD_HOME).*" ]]; then
     db_type=$(get_bbconfig_property bbconfig.database.type)
-    db_type_default=$(get_default_bbconfig_property bbconfig.database.type)
-    if [ "$db_type" != "$db_type_default" ]; then
+    if [ $BLACKBOARD_HOME != "/usr/local/blackboard" ]; then
       prompt_segment yellow black
       echo -n $db_type
     fi

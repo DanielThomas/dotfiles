@@ -93,6 +93,7 @@ function switchLearn {
   if [ -d $BLACKBOARD_HOME ]; then
     BLACKBOARD_TOOLS=$BLACKBOARD_HOME/tools/admin
     alias bb="cd $BLACKBOARD_HOME"
+    alias b2="cd $B2_PROJECTS"
     # Aliases for admin tools
     alias sc="$BLACKBOARD_TOOLS/ServiceController.sh"
     alias b2m="$BLACKBOARD_TOOLS/B2Manager.sh"

@@ -11,3 +11,6 @@ alias cd..="cd .."
 alias top="top -o cpu"
 
 alias tf="tail -f"
+
+# Alias the_silver_searcher to the_platinum_searcher
+alias ag=pt

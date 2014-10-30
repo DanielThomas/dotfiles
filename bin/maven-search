@@ -8,7 +8,7 @@ do
   result=$(echo $central | xml sel -t -m "/response/result/doc/str[@name='id']" -v "concat(.,' ')")
 
   if [[ ! "$result" ]]; then
-    nexus_repos="http://maven.pd.local https://oss.sonatype.org https://repository.apache.org https://maven.java.net https://nexus.codehaus.org"
+    nexus_repos="http://maven.pd.local https://oss.sonatype.org https://maven.java.net https://nexus.codehaus.org"
     for nexus_repo in $nexus_repos
     do
       repo=$nexus_repo

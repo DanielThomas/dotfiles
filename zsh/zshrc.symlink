@@ -14,6 +14,9 @@ plugins=("${(@f)$(find $DOTFILES -not -name '.git' -d 1 -type d -exec basename {
 # add any plugins defined by files
 plugins+=("${(@f)$(find $DOTFILES -name oh-my-zsh.plugins -d 2 -exec cat {} \;)}")
 
+# turn off auto update
+DISABLE_AUTO_UPDATE=true
+
 # load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 

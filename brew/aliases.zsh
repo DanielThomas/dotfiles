@@ -1,1 +1,1 @@
-alias bup="brew doctor; brew upgrade; brew cleanup"
+alias bup="brew upgrade; brew cleanup"

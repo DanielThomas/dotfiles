@@ -1,2 +1,2 @@
 alias b="brew"
-alias bup="brew upgrade; brew cleanup"
+alias bup="brew upgrade --all; brew cleanup"

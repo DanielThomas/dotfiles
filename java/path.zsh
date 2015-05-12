@@ -1,3 +1,3 @@
-export JAVA_HOME=/usr/local/jdk
+eval "$(jenv init -)"
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
-export PATH=$JAVA_HOME/bin:$GROOVY_HOME/bin:$PATH
+export PATH=$GROOVY_HOME/bin:$PATH

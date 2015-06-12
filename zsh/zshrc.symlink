@@ -14,9 +14,6 @@ plugins=("${(@f)$(find $DOTFILES -not -name '.git' -d 1 -type d -exec basename {
 # add any plugins defined by files
 plugins+=("${(@f)$(find $DOTFILES -name oh-my-zsh.plugins -d 2 -exec cat {} \;)}")
 
-# turn off auto update
-DISABLE_AUTO_UPDATE=true
-
 # load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
@@ -31,11 +28,6 @@ if [ -z "$DEFAULT_USER" ]; then
   echo "Please set DEFAULT_USER in your ~/.localrc"
   exit 1
 fi
-
-# 10.10 seems to be handling default paths differently, causing duplicate PATH variables, temporary hack to deal with that
-ZSHPATH=$PATH
-unset PATH
-PATH=$ZSHPATH
 
 # all of our zsh files
 typeset -U config_files

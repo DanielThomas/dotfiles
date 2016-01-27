@@ -1,4 +1,1 @@
-SUBLIME=/usr/local/bin/sublime
-if [ -f "$SUBLIME" ]; then
-  export EDITOR=/usr/local/bin/sublime
-fi
+export EDITOR="$(printf %q "$_sublime_path") -w"

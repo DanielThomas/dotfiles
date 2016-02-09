@@ -1,1 +1,1 @@
-eval "$(docker-machine env Docker)"
+eval "$(docker-machine env)"

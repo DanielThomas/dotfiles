@@ -166,23 +166,24 @@ install_formulas () {
 
   info 'updating homebrew'
   brew update >> /dev/null
-  info 'checking homebrew is healthy'
-
-  if ! brew doctor >> /dev/null; then
-    fail "there's a problem with Homebrew. Fix it and confirm with 'brew doctor' before continuing"
-  fi
 
   for file in `find $DOTFILES_ROOT -maxdepth 2 -name install.homebrew`; do
     for formula in `cat $file`; do
-      install_formula $formula
+      brew_install $formula
+    done
+  done
+
+  for file in `find $DOTFILES_ROOT -maxdepth 2 -name install.homebrew-cask`; do
+    for formula in `cat $file`; do
+      brew_install $formula cask
     done
   done
 }
 
-install_formula () {
+brew_install () {
   formula=$1
-  if ! brew ls --versions $formula | grep -q $formula; then
-    if brew install $formula >> /dev/null; then
+  if ! brew $2 ls --versions $formula 2> /dev/null | grep -q $formula; then
+    if brew $2 install $formula > /dev/null 2>&1; then
       success "installed $formula"
     else
       fail "failed to install $formula"

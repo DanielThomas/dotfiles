@@ -1,0 +1,16 @@
+autoconf
+automake
+bsdmake
+ccache
+cloc
+cmake
+gcc
+git
+makedepend
+mercurial
+node
+pkg-config
+python
+python3
+ruby
+rust

@@ -4,7 +4,7 @@
 
 source scripts/common.sh
 
-info "upgrading dotfiles"
+info "upgrading dotfiles, grab some coffee"
 
 for file in `find $DOTFILES_ROOT -maxdepth 2 -name \*.gitrepo`; do
   repo="$HOME/.`basename \"${file%.*}\"`"

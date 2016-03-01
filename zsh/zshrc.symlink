@@ -8,6 +8,16 @@ ZSH_THEME="agnoster"
 alias zshconfig="st ~/.zshrc"
 alias ohmyzsh="st ~/.oh-my-zsh"
 
+yippee-ki-yay() {
+    pushd ~/.dotfiles > /dev/null
+    ./update.sh
+    popd > /dev/null
+}
+
+upgrade_dotfiles() {
+    yippee-ki-yay
+}
+
 # define oh-my-zsh plugins implicitly based on the topics
 plugins=("${(@f)$(find $DOTFILES -not -name '.git' -d 1 -type d -exec basename {} \;)}")
 

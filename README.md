@@ -21,7 +21,7 @@ Use `~/.localrc` to configure anything that you want to keep outside of the repo
 
 ## Update ##
 
-Use `cd ~/.dotfiles; ./update.sh` to automatically update cloned git repositories.
+Use `upgrade_dotfiles` to automatically update everything bootstrapped by the repository.
 
 ## Features ##
 

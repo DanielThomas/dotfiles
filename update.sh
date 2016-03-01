@@ -20,6 +20,7 @@ info 'updating homebrew'
 brew update > /dev/null
 info 'upgrading homebrew formulas'
 brew upgrade > /dev/null
+info 'cleaning up homebrew'
 brew cleanup > /dev/null
 
 info "update complete!"

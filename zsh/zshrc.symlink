@@ -8,14 +8,18 @@ ZSH_THEME="agnoster"
 alias zshconfig="st ~/.zshrc"
 alias ohmyzsh="st ~/.oh-my-zsh"
 
-yippee-ki-yay() {
+# disable update, upgrade_dotfiles handles this
+DISABLE_AUTO_UPDATE="true"
+
+upgrade_dotfiles() {
     pushd ~/.dotfiles > /dev/null
     ./update.sh
     popd > /dev/null
 }
 
-upgrade_dotfiles() {
-    yippee-ki-yay
+# for the over eager upgrade junky
+yippee-ki-yay() {
+    upgrade_dotfiles
 }
 
 # define oh-my-zsh plugins implicitly based on the topics

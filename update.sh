@@ -16,11 +16,9 @@ for file in `find $DOTFILES_ROOT -maxdepth 2 -name \*.gitrepo`; do
   popd >> /dev/null
 done
 
-info 'updating homebrew'
-brew update > /dev/null
-info 'upgrading homebrew formulas'
-brew upgrade > /dev/null
-info 'cleaning up homebrew'
-brew cleanup > /dev/null
+run 'updating homebrew' 'brew update'
+run 'upgrading homebrew' 'brew upgrade'
+run 'cleaning up homebrew' 'brew cleanup'
+run 'installing software updates' 'softwareupdate --install --all'
 
 info "update complete!"

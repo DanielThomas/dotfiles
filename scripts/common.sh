@@ -21,7 +21,18 @@ success () {
 }
 
 fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  printf "\r\033[2K  [\033[0;31m!!\033[0m] $1\n"
   echo ''
   exit
+}
+
+run() {
+  set +e
+  info "$1"
+  output=$($2)
+  if [ $? -ne 0 ]; then
+    fail "failed to run $1\n$output"
+    exit
+  fi
+  set -e
 }

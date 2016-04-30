@@ -19,6 +19,5 @@ done
 run 'updating homebrew' 'brew update'
 run 'upgrading homebrew' 'brew upgrade'
 run 'cleaning up homebrew' 'brew cleanup'
-run 'installing software updates' 'softwareupdate --install --all'
 
 info "update complete!"

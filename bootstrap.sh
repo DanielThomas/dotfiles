@@ -164,15 +164,15 @@ install_formulas () {
     source $DOTFILES_ROOT/brew/path.zsh
   fi
 
-  for file in `find $DOTFILES_ROOT -maxdepth 2 -name install.homebrew`; do
-    for formula in `cat $file`; do
-      brew_install $formula
-    done
-  done
-
   for file in `find $DOTFILES_ROOT -maxdepth 2 -name install.homebrew-cask`; do
     for formula in `cat $file`; do
       brew_install $formula cask
+    done
+  done
+
+  for file in `find $DOTFILES_ROOT -maxdepth 2 -name install.homebrew`; do
+    for formula in `cat $file`; do
+      brew_install $formula
     done
   done
 }

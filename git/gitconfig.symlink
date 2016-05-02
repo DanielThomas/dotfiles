@@ -98,3 +98,5 @@
 	ff = only
 [core]
 	excludesfile = /Users/dannyt/.gitignore_global
+[credential]
+	helper = osxkeychain

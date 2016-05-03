@@ -61,6 +61,10 @@ git_clone () {
 install_dotfiles () {
   info 'installing dotfiles'
 
+  if ! xcode-select -p; then
+    run 'installing developer tools' 'scripts/xcode-cli-tools.sh'
+  fi
+
   overwrite_all=false
   backup_all=false
   skip_all=false

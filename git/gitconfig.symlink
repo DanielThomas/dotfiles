@@ -90,13 +90,15 @@
     #merges
     ours = "!f() { git co --ours $@ && git add $@; }; f"
     theirs = "!f() { git co --theirs $@ && git add $@; }; f"
-	p4r = p4 rebase
-	p4s = p4 submit
+    p4r = p4 rebase
+    p4s = p4 submit
 [push]
 	default = current
 [merge]
-	ff = only
+    ff = only
 [core]
-	excludesfile = /Users/dannyt/.gitignore_global
+    excludesfile = /Users/dannyt/.gitignore_global
+    pager = "diff-so-fancy | less --tabs=4 -RFX"
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain
+

@@ -9,26 +9,28 @@
 [rebase]
     autosquash = true
 [alias]
-    # Aliases mostly from https://github.com/durdn/cfg/blob/master/.gitconfig
-    # per http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
-    st = status -s
+    aliases = config --get-regexp alias 
+
+    # common commands
+    s = status -s
 
     cl = clone
 
-    ci = commit
+    c = commit
     cm = commit -m
     cma = commit -a -m
     ca = commit --amend
-    amend = commit --amend
-    caa = commit -a --amend -C HEAD
-    filelog = log -u
-    fl = log -u
+    
+    p = pull --rebase
+    pm = push origin master
+    ppm = !git pull --rebase && git push origin master
 
     ai = add --interactive
 
     co = checkout
     br = branch
     bra = branch -ra
+
     # list commands
     le = log --oneline --decorate
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --stat

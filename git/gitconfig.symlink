@@ -12,7 +12,10 @@
     aliases = config --get-regexp alias 
 
     # common commands
+    ai = add --interactive
+
     s = status -s
+    st = status -s
 
     cl = clone
 
@@ -25,7 +28,8 @@
     pm = push origin master
     ppm = !git pull --rebase && git push origin master
 
-    ai = add --interactive
+    cl = clean
+    clb = !git branch -d $(git branch --merged | sed '/master/d' | sed '/*/d') && git remote prune origin
 
     co = checkout
     br = branch
@@ -92,12 +96,8 @@
     #merges
     ours = "!f() { git co --ours $@ && git add $@; }; f"
     theirs = "!f() { git co --theirs $@ && git add $@; }; f"
-    p4r = p4 rebase
-    p4s = p4 submit
 [push]
 	default = current
-[merge]
-    ff = only
 [core]
     excludesfile = /Users/dannyt/.gitignore_global
     pager = "diff-so-fancy | less --tabs=4 -RFX"

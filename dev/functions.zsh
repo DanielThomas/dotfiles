@@ -20,3 +20,11 @@ function gradle_disable_daemon() {
 function gradle_enable_daemon() {
     ssed -i 's/org.gradle.daemon=false/org.gradle.daemon=true/g' ~/.gradle/gradle.properties
 }
+
+function gradle_user_home_local() {
+    export GRADLE_USER_HOME="$(pwd)/.gradle"
+}
+
+function gradle_user_home_unset() {
+    unset GRADLE_USER_HOME
+}

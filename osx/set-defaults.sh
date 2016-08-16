@@ -7,7 +7,7 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 chflags nohidden ~/Library
 
 # Set a really fast key repeat
-defaults write NSGlobalDomain KeyRepeat -int 0
+defaults write NSGlobalDomain KeyRepeat -int 1
 
 # Showing and hiding sheets, resizing preference windows, zooming windows
 # float 0 doesn't work

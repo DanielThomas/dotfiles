@@ -1,4 +1,5 @@
 coreutils
+bash
 grc
-readline
 md5sha1sum
+readline

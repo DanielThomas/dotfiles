@@ -1,7 +1,7 @@
 [include]
-    path = /Users/dannyt/.gitconfig_local
+    path = /Users/mikemcgarr/.gitconfig_local
 [core]
-    excludesfile = /Users/dannyt/.gitignore_global
+    excludesfile = /Users/mikemcgarr/.gitignore_global
     pager = "diff-so-fancy | less --tabs=4 -RFX"
 [color]
 	ui = true
@@ -11,7 +11,7 @@
 [rebase]
     autosquash = true
 [alias]
-    aliases = config --get-regexp alias 
+    aliases = config --get-regexp alias
 
     # common commands
     ai = add --interactive
@@ -26,7 +26,6 @@
     cma = commit -a -m
     ca = commit --amend
     commend = commit --amend --no-edit
-    
     p = pull --rebase
     pm = push origin master
     ppm = !git pull --rebase && git push origin master
@@ -55,10 +54,10 @@
     diff = diff --word-diff
     d = diff --word-diff
     dc = diff --cached
-    
+
     #list modified files in last commit
     dl = "!git ll -1"
-    
+
     #diff last commit
     dlc = diff --cached HEAD^
     dr  = "!f() { git diff "$1"^.."$1"; }; f"
@@ -92,7 +91,7 @@
     #assume aliases
     assume = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
-    
+
     #show assumed files
     assumed = "!git ls-files -v | grep ^h | cut -c 3-"
 

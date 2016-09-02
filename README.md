@@ -1,4 +1,4 @@
-# Danny's dotfiles #
+# Mike's dotfiles (stolen from Danny)#
 
 Opinionated dotfiles repository for Mac OS with zsh and iTerm 2. Including Homebrew, Solarised and oh-my-zsh with the Agnoster theme.
 

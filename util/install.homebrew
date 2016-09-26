@@ -2,6 +2,7 @@ curl
 dos2unix
 fpp
 httpie
+httpstat
 jq
 ssed
 the_silver_searcher

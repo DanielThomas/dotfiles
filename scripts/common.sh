@@ -29,7 +29,7 @@ fail () {
 run() {
   set +e
   info "$1"
-  output=$($2)
+  output=$($2 2>&1)
   if [ $? -ne 0 ]; then
     fail "failed to run $1\n$output"
     exit

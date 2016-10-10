@@ -32,7 +32,7 @@ copy_file () {
 }
 
 open_file () {
-  open $1
+  run "open $1" "open $1"
   success "opened $1"
 }
 
@@ -144,7 +144,7 @@ install_file () {
 
 run_installers () {
   info 'running installers'
-  find . -name install.sh | while read installer ; do run "${installer}" ; done
+  find . -name install.sh | while read installer ; do run "${installer}" "${installer}" ; done
 
   info 'opening files'
   OLD_IFS=$IFS

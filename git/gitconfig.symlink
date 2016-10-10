@@ -1,8 +1,7 @@
+[include]
+    path = ~/.gitconfig_local
 [color]
 	ui = true
-[user]
-	name = Danny Thomas
-	email = dannyt@netflix.com
 [pull]
     default = current
 	ff = true

@@ -10,7 +10,7 @@ Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 - Start Terminal for installation. iTerm, fonts, colour schemes and preferences lists are automatically installed as part of the bootstrap, and iTerm will overwrite settings on exit
 - Run the bootstrap:`cd ~/.dotfiles; ./bootstrap.sh`
 - Set `zsh` as your default shell: `sudo sh -c 'echo /usr/local/bin/zsh >> /etc/shells'; chsh -s /usr/local/bin/zsh`
-- Start iTerm
+- Start iTerm. If you see `zsh compinit: insecure directories` warnings, run: `compaudit | xargs chmod g-w`
 
 Use `~/.localrc` to configure anything that you want to keep outside of the repository or private. For more than the most basic use, you should fork the repository as a basis for your own.
 

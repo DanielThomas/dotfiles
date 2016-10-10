@@ -144,7 +144,7 @@ install_file () {
 
 run_installers () {
   info 'running installers'
-  find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+  find . -name install.sh | while read installer ; do run "${installer}" ; done
 
   info 'opening files'
   OLD_IFS=$IFS

@@ -22,10 +22,12 @@
     cm = commit -m
     cma = commit -a -m
     ca = commit --amend
+    commend = commit --amend --no-edit
     
     p = pull --rebase
     pm = push origin master
     ppm = !git pull --rebase && git push origin master
+    please = push --force-with-lease
 
     cl = clean
     clb = !git branch -d $(git branch --merged | sed '/master/d' | sed '/*/d') && git remote prune origin
@@ -43,13 +45,17 @@
     lc  = "!f() { git ll "$1"^.."$1"; }; f"
     lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
     lg = log --graph --oneline --decorate --all
+    grog = log --graph --abbrev-commit --decorate --all --format=format:"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)"
+
     #list all aliases
     la = "!git config -l | grep alias | cut -c 7-"
     diff = diff --word-diff
     d = diff --word-diff
     dc = diff --cached
+    
     #list modified files in last commit
     dl = "!git ll -1"
+    
     #diff last commit
     dlc = diff --cached HEAD^
     dr  = "!f() { git diff "$1"^.."$1"; }; f"
@@ -83,8 +89,10 @@
     #assume aliases
     assume = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
+    
     #show assumed files
     assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+
     #unassume all the assumed files
     unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
     assumeall = "!git st -s | awk {'print $2'} | xargs git assume"
@@ -95,6 +103,9 @@
     #merges
     ours = "!f() { git co --ours $@ && git add $@; }; f"
     theirs = "!f() { git co --theirs $@ && git add $@; }; f"
+
+    #grumble
+    ffs = "!git all && git fixlast"
 [push]
 	default = current
 [core]

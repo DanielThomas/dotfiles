@@ -9,7 +9,7 @@ Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 - Assuming a clean install, run `xcode-select --install` to install the Developer Tools
 - Fork and clone the repository `git clone <repopath> ~/.dotfiles`
 - Start Terminal for installation (iTerm, fonts, colour schemes and preferences lists are automatically installed as part of the bootstrap, and iTerm will overwrite settings on exit)
-- Run the bootstrap:`cd ~/.dotfiles; ./bootstrap.sh`
+- Run the bootstrap:`cd ~/.dotfiles; ./bootstrap.sh`. You'll be prompted at least once for your password for the Homebrew install
 - Set `zsh` as your default shell: `sudo sh -c 'echo /usr/local/bin/zsh >> /etc/shells'; chsh -s /usr/local/bin/zsh`
 - Start iTerm. If you see `zsh compinit: insecure directories` warnings, run: `compaudit | xargs chmod g-w`
 

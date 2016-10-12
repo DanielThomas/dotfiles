@@ -15,8 +15,10 @@ Inspired by Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 
 ## Local configuration ##
 
-- `~/.localrc` to configure anything that you want to keep outside of the repository or private
-- `~/.localdotfiles` supports same file structure as this primary repository, for configurations you want to keep private, including supporting a `gitconfig_local.symlink` for local git configuration (such as your user details)
+- Use `~/.localdotfiles` to keep anything you don't want to make public. It support the same structure as as this repository
+- In particular, update `~/.gitconfig`:
+    - Update the absolute paths for the includes (JGit doesn't support relative paths, so I have to keep them hard coded unfortunately)
+    - There is a default include for `.gitconfig_local` to include your user configuration etc. Create it manually, or add a `gitconfig_local.symlink` file in `~/.localdotfiles`
 
 ## Update ##
 

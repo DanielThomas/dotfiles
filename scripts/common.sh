@@ -9,19 +9,19 @@ set -e
 echo ''
 
 info () {
-  printf "  [ \033[00;34m..\033[0m ] $1\n"
+  printf "  [ \033[00;34m..\033[0m ] %s\n" "$1"
 }
 
 user () {
-  printf "\r  [ \033[0;33m??\033[0m ] $1 "
+  printf "\r  [ \033[0;33m??\033[0m ] %s " "$1"
 }
 
 success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] %s\n" "$1"
 }
 
 fail () {
-  printf "\r\033[2K  [\033[0;31m!!\033[0m] $1\n"
+  printf "\r\033[2K  [\033[0;31m!!\033[0m] %s\n" "$1"
   echo ''
   exit
 }
@@ -35,4 +35,8 @@ run() {
     exit
   fi
   set -e
+}
+
+dotfiles_find() {
+    find -L "$DOTFILES_ROOT" -maxdepth 3 -name "$1"
 }

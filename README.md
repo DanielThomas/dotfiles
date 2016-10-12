@@ -2,7 +2,7 @@
 
 Opinionated dotfiles repository for Mac OS with zsh and iTerm 2. Including Homebrew, Solarised and oh-my-zsh with the Agnoster theme.
 
-Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
+Inspired by Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 
 ## Install ##
 
@@ -15,8 +15,8 @@ Based on Zach Holman's dotfiles - https://github.com/holman/dotfiles.
 
 ## Local configuration ##
 
-- `~/.localrc` to configure anything that you want to keep outside of the repository or private. For more than the most basic use, you should fork the repository as a basis for your own
-- `~/.gitconfig_local` for git configurations you want to not check in (like user details)
+- `~/.localrc` to configure anything that you want to keep outside of the repository or private
+- `~/.localdotfiles` supports same file structure as this primary repository, for configurations you want to keep private, including supporting a `gitconfig_local.symlink` for local git configuration (such as your user details)
 
 ## Update ##
 

@@ -25,8 +25,10 @@ yippee-ki-yay() {
 # define oh-my-zsh plugins implicitly based on the topics
 plugins=("${(@f)$(find $DOTFILES -not -name '.git' -d 1 -type d -exec basename {} \;)}")
 
+plugins+=("${(@f)$(find $DOTFILES/local -not -name '.git' -d 1 -type d -exec basename {} \;)}")
+
 # add any plugins defined by files
-plugins+=("${(@f)$(find $DOTFILES -name oh-my-zsh.plugins -d 2 -exec cat {} \;)}")
+plugins+=("${(@f)$(find -L $DOTFILES -name oh-my-zsh.plugins -d 2 -exec cat {} \;)}")
 
 # load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -45,7 +47,7 @@ fi
 
 # all of our zsh files
 typeset -U config_files
-config_files=($DOTFILES/**/*.zsh)
+config_files=($(find -L "$DOTFILES" -name \*.zsh))
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
@@ -53,8 +55,8 @@ do
   source $file
 done
 
-# put the bin/ directory first on the path
-export PATH=$DOTFILES/bin:$PATH
+# put the bin/ directories first on the path
+export PATH=$DOTFILES/bin:$DOTFILES/local/bin:$PATH
 
 # load everything but the path and completion files
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}

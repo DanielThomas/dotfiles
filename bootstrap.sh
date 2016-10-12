@@ -47,7 +47,7 @@ git_clone () {
 
   dir=$(dirname $1)
   base=$(basename ${1%.*})
-  for patch in $(find $dir -maxdepth 2 -name $base\*.gitpatch); do
+  for patch in $(dotfiles_find "$base\*.gitpatch"); do
     pushd $dest >> /dev/null
     if ! git am --quiet $patch; then
       fail "apply patch failed"
@@ -66,25 +66,25 @@ install_dotfiles () {
   skip_all=false
 
   # symlinks
-  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink); do
+  for file_source in $(dotfiles_find \*.symlink); do
     file_dest="$HOME/.`basename \"${file_source%.*}\"`"
     install_file link $file_source $file_dest
   done
 
   # git repositories
-  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.gitrepo); do
+  for file_source in $(dotfiles_find \*.gitrepo); do
     file_dest="$HOME/.`basename \"${file_source%.*}\"`"
     install_file git $file_source $file_dest
   done
 
   # preferences
-  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.plist); do
+  for file_source in $(dotfiles_find \*.plist); do
     file_dest="$HOME/Library/Preferences/`basename $file_source`"
     install_file copy $file_source $file_dest
   done
 
   # fonts
-  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name \*.otf -or -name \*.ttf -or -name \*.ttc); do
+  for file_source in $(dotfiles_find \*.otf -or -name \*.ttf -or -name \*.ttc); do
     file_dest="$HOME/Library/Fonts/$(basename $file_source)"
     install_file copy $file_source $file_dest
   done
@@ -144,12 +144,12 @@ install_file () {
 
 run_installers () {
   info 'running installers'
-  find . -name install.sh | while read installer ; do run "running ${installer}" "${installer}" ; done
+  find -L . -name install.sh | while read installer ; do run "running ${installer}" "${installer}" ; done
 
   info 'opening files'
   OLD_IFS=$IFS
   IFS=''
-  for file_source in $(find $DOTFILES_ROOT -maxdepth 2 -name install.open); do
+  for file_source in $(dotfiles_find install.open); do
     for file in `cat $file_source`; do
       expanded_file=$(eval echo $file)
       open_file $expanded_file
@@ -164,13 +164,13 @@ install_formulas () {
     source $DOTFILES_ROOT/brew/path.zsh
   fi
 
-  for file in `find $DOTFILES_ROOT -maxdepth 2 -name install.homebrew-cask`; do
+  for file in `dotfiles_find install.homebrew-cask`; do
     for formula in `cat $file`; do
       brew_install $formula cask
     done
   done
 
-  for file in `find $DOTFILES_ROOT -maxdepth 2 -name install.homebrew`; do
+  for file in `dotfiles_find install.homebrew`; do
     for formula in `cat $file`; do
       brew_install $formula
     done

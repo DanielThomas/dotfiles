@@ -14,11 +14,11 @@ function gradle_opts_profile() {
 }
 
 function gradle_disable_daemon() {
-    sed -i 's/org.gradle.daemon=true/org.gradle.daemon=false/g' ~/.gradle/gradle.properties
+    gsed -i 's/org.gradle.daemon=true/org.gradle.daemon=false/g' ~/.gradle/gradle.properties
 }
 
 function gradle_enable_daemon() {
-    sed -i 's/org.gradle.daemon=false/org.gradle.daemon=true/g' ~/.gradle/gradle.properties
+    gsed -i 's/org.gradle.daemon=false/org.gradle.daemon=true/g' ~/.gradle/gradle.properties
 }
 
 function gradle_user_home_local() {

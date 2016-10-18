@@ -1,10 +1,10 @@
 curl
 dos2unix
 fpp
+gnu-sed
 httpie
 httpstat
 jq
-ssed
 the_silver_searcher
 tree
 wget

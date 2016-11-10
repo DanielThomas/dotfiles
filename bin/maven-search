@@ -7,18 +7,18 @@ do
   central=$(curl -s $repo/solrsearch/select\?q\=1:"$sha1"\&rows\=20\&wt\=xml)
   result=$(echo $central | xml sel -t -m "/response/result/doc/str[@name='id']" -v "concat(.,' ')")
 
-  if [[ ! "$result" ]]; then
-    nexus_repos="http://maven.pd.local https://oss.sonatype.org https://maven.java.net https://nexus.codehaus.org"
-    for nexus_repo in $nexus_repos
-    do
-      repo=$nexus_repo
-      nexus=$(curl -s $repo/service/local/data_index?sha1=$sha1)
-      result=$(echo $nexus | xml sel -t -m "/search-results/data/artifact" -v "concat(groupId,':',artifactId,':',version)")
-      if [[ "$result" ]]; then
-        break
-      fi
-    done
-  fi
+  # if [[ ! "$result" ]]; then
+  #   nexus_repos="http://maven.pd.local https://oss.sonatype.org https://maven.java.net https://nexus.codehaus.org"
+  #   for nexus_repo in $nexus_repos
+  #   do
+  #     repo=$nexus_repo
+  #     nexus=$(curl -s $repo/service/local/data_index?sha1=$sha1)
+  #     result=$(echo $nexus | xml sel -t -m "/search-results/data/artifact" -v "concat(groupId,':',artifactId,':',version)")
+  #     if [[ "$result" ]]; then
+  #       break
+  #     fi
+  #   done
+  # fi
 
   if [[ ! "$result" ]]; then
     echo "MISSING! $file"

@@ -10,6 +10,7 @@ makedepend
 mercurial
 node
 pkg-config
+postgresql
 python
 python3
 ruby

@@ -59,8 +59,6 @@ git_clone () {
 }
 
 install_dotfiles () {
-  info 'installing dotfiles'
-
   overwrite_all=false
   backup_all=false
   skip_all=false
@@ -196,10 +194,34 @@ create_localrc () {
   fi
 }
 
-install_dotfiles
-run_installers
-install_formulas
-create_localrc
+pull_repos () {
+  for file in `find $DOTFILES_ROOT -maxdepth 2 -name \*.gitrepo`; do
+    repo="$HOME/.`basename \"${file%.*}\"`"
+    pushd $repo > /dev/null
+    if ! git pull --rebase --quiet origin master; then
+      fail "could not update $repo"
+    fi
+    success "updated $repo"
+    popd >> /dev/null
+  done
+}
+
+if [ "$1" = "update" ]; then
+  info 'updating dotfiles'
+  pull_repos
+
+  run_installers
+  run 'updating homebrew' 'brew update'
+  run 'upgrading homebrew' 'brew upgrade'
+  install_formulas
+  run 'cleaning up homebrew' 'brew cleanup'
+else
+  info 'installing dotfiles'
+  install_dotfiles
+  run_installers
+  install_formulas
+  create_localrc
+fi
 
 info 'complete!'
 echo ''

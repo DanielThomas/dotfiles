@@ -5,7 +5,6 @@ ccache
 cloc
 cmake
 gcc
-git
 makedepend
 mercurial
 node

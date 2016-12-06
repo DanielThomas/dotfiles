@@ -1,5 +1,6 @@
 coreutils
 bash
+findutils
 grc
 md5sha1sum
 readline

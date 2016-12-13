@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ ! -d $1 ]; then
+  mkdir $1
+fi
+
+cd $1
+for url in $(curl -s https://api.github.com/users/$1/repos | jq '.[].ssh_url' | tr -d '"'); do
+  git clone $url
+done

@@ -48,3 +48,5 @@ bb() {
             ;;
     esac
 }
+
+compdef '_files -W "~/Projects/bb"' bb

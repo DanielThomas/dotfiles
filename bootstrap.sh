@@ -195,7 +195,7 @@ create_localrc () {
 }
 
 pull_repos () {
-  for file in `find $DOTFILES_ROOT -maxdepth 2 -name \*.gitrepo`; do
+  for file in $(dotfiles_find \*.gitrepo); do
     repo="$HOME/.`basename \"${file%.*}\"`"
     pushd $repo > /dev/null
     if ! git pull --rebase --quiet origin master; then

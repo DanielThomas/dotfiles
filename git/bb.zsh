@@ -43,7 +43,7 @@ bb() {
             if [ $? = 127 ]; then
                 echo "Error: '$subcommand' is not a known subcommand." >&2
                 echo "       Run 'bb --help' for a list of known subcommands." >&2
-                exit 1
+                return 1
             fi
             ;;
     esac

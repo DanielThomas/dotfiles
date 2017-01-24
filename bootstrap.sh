@@ -47,7 +47,7 @@ git_clone () {
 
   dir=$(dirname $1)
   base=$(basename ${1%.*})
-  for patch in $(dotfiles_find "$base\*.gitpatch"); do
+  for patch in $(find $dir -maxdepth 2 -name $base\*.gitpatch); do
     pushd $dest >> /dev/null
     if ! git am --quiet $patch; then
       fail "apply patch failed"

@@ -206,13 +206,20 @@ pull_repos () {
   done
 }
 
+brew_upgrade () {
+  run 'updating homebrew' 'brew update'
+  for update in $(brew outdated); do
+    formula=$(echo "$update" | cut -d ' ' -f 1)
+    run "upgrading $update" "brew upgrade $formula"
+  done
+}
+
 if [ "$1" = "update" ]; then
   info 'updating dotfiles'
   pull_repos
 
   run_installers
-  run 'updating homebrew' 'brew update'
-  run 'upgrading homebrew' 'brew upgrade'
+  brew_upgrade
   install_formulas
   run 'cleaning up homebrew' 'brew cleanup'
   run 'cleaning up homebrew-cask' 'brew cask cleanup'

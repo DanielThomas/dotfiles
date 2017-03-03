@@ -5,7 +5,7 @@ gnu-sed
 httpie
 httpstat
 jq
-the_silver_searcher
+ripgrep
 tree
 wget
 xmlstarlet

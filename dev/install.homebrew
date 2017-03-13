@@ -10,6 +10,7 @@ mercurial
 node
 pkg-config
 postgresql
+pup
 python
 python3
 redis

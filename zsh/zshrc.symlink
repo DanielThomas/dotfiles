@@ -12,9 +12,13 @@ alias ohmyzsh="st ~/.oh-my-zsh"
 DISABLE_AUTO_UPDATE="true"
 
 upgrade_dotfiles() {
+  if [[ `pwd` == $HOME/.dotfiles ]] ; then
+    ./update.sh
+  else
     pushd ~/.dotfiles > /dev/null
     ./bootstrap.sh update
     popd > /dev/null
+  fi
 }
 
 # for the over eager upgrade junky

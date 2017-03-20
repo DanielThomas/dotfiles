@@ -13,7 +13,7 @@ DISABLE_AUTO_UPDATE="true"
 
 upgrade_dotfiles() {
   if [[ `pwd` == $HOME/.dotfiles ]] ; then
-    ./update.sh
+    ./bootstrap.sh update
   else
     pushd ~/.dotfiles > /dev/null
     ./bootstrap.sh update

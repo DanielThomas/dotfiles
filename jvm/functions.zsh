@@ -8,8 +8,18 @@ function gradle_opts_debug() {
     gradle_disable_daemon
 }
 
-function gradle_opts_profile() {
+function gradle_opts_yk() {
+    export GRADLE_OPTS="-agentpath:/Applications/YourKit.app/Contents/Resources/bin/mac/libyjpagent.jnilib"
+    gradle_disable_daemon
+}
+
+function gradle_opts_ykcpu() {
     export GRADLE_OPTS="-agentpath:/Applications/YourKit.app/Contents/Resources/bin/mac/libyjpagent.jnilib=sampling,probe_disable=*,onexit=snapshot"
+    gradle_disable_daemon
+}
+
+function gradle_opts_ykmem() {
+    export GRADLE_OPTS="-agentpath:/Applications/YourKit.app/Contents/Resources/bin/mac/libyjpagent.jnilib=alloceach=10,allocsizelimit=4096,onexit=snapshot"
     gradle_disable_daemon
 }
 

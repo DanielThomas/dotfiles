@@ -13,13 +13,18 @@ function gradle_opts_yk() {
     gradle_disable_daemon
 }
 
-function gradle_opts_ykcpu() {
+function gradle_opts_yksample() {
     export GRADLE_OPTS="-agentpath:/Applications/YourKit.app/Contents/Resources/bin/mac/libyjpagent.jnilib=sampling,probe_disable=*,onexit=snapshot"
     gradle_disable_daemon
 }
 
-function gradle_opts_ykmem() {
+function gradle_opts_ykalloc() {
     export GRADLE_OPTS="-agentpath:/Applications/YourKit.app/Contents/Resources/bin/mac/libyjpagent.jnilib=alloceach=10,allocsizelimit=4096,onexit=snapshot"
+    gradle_disable_daemon
+}
+
+function gradle_opts_ykalloc_count() {
+    export GRADLE_OPTS="-agentpath:/Applications/YourKit.app/Contents/Resources/bin/mac/libyjpagent.jnilib=alloc_object_counting,onexit=snapshot"
     gradle_disable_daemon
 }
 

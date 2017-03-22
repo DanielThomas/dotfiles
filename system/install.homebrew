@@ -4,4 +4,5 @@ findutils
 grc
 htop
 md5sha1sum
+pkgdiff
 readline

@@ -4,6 +4,7 @@ bsdmake
 ccache
 cloc
 cmake
+dpkg
 gcc
 makedepend
 mercurial

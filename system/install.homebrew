@@ -1,8 +1,10 @@
-coreutils
+asciinema
 bash
+coreutils
 findutils
 grc
 htop
+lolcat
 md5sha1sum
 pkgdiff
 readline

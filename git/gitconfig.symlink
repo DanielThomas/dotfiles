@@ -109,6 +109,9 @@
 
     #grumble
     ffs = "!git all && git fixlast"
+
+    # heh
+    dad = "!curl -w '\n' https://icanhazdadjoke.com"
 [push]
 	default = current
 [credential]

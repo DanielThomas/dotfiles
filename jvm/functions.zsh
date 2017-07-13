@@ -12,20 +12,20 @@ function gradle-profiler() {
 	~/.gradle-profiler/build/install/gradle-profiler/bin/gradle-profiler "$@"
 }
 
-# Useful for profiling the Gradle launcher
+# Useful for profiling the Gradle launcher and adhoc profiling
 
 function gradleYk() {
     GRADLE_OPTS="-agentpath:/Applications/YourKit.app/Contents/Resources/bin/mac/libyjpagent.jnilib" gw --no-daemon "$@"
 }
 
-function gradleOptsYkSample() {
+function gradleYkSample() {
     GRADLE_OPTS="-agentpath:/Applications/YourKit.app/Contents/Resources/bin/mac/libyjpagent.jnilib=sampling,probe_disable=*,onexit=snapshot" gw --no-daemon "$@"
 }
 
-function gradleOptsYkAlloc() {
+function gradleYkAlloc() {
     GRADLE_OPTS="-agentpath:/Applications/YourKit.app/Contents/Resources/bin/mac/libyjpagent.jnilib=alloceach=10,allocsizelimit=4096,onexit=snapshot" gw --no-daemon "$@"
 }
 
-function gradleOptsYkAllocCount() {
+function gradleYkAllocCount() {
     GRADLE_OPTS="-agentpath:/Applications/YourKit.app/Contents/Resources/bin/mac/libyjpagent.jnilib=alloc_object_counting,onexit=snapshot" gw --no-daemon "$@"
 }

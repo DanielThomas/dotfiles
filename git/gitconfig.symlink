@@ -3,8 +3,16 @@
 [core]
     excludesfile = /Users/dannyt/.gitignore_global
     pager = "diff-so-fancy | less --tabs=4 -RFX"
+[diff-so-fancy]
+    markEmptyLines = false
 [color]
 	ui = true
+[credential]
+    helper = osxkeychain
+[push]
+    default = current
+[merge]
+    ff = only
 [pull]
     default = current
 	ff = true
@@ -109,14 +117,3 @@
 
     #grumble
     ffs = "!git all && git fixlast"
-
-    # heh
-    dad = "!curl -w '\n' https://icanhazdadjoke.com"
-[push]
-	default = current
-[credential]
-    helper = osxkeychain
-[diff-so-fancy]
-    markEmptyLines = false
-[merge]
-    ff = only

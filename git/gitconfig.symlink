@@ -117,4 +117,4 @@
     theirs = "!f() { git co --theirs $@ && git add $@; }; f"
 
     #grumble
-    ffs = "!git all && git fixlast"
+    ffs = "!git all && git commit --amend"

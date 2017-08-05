@@ -1,7 +1,0 @@
-#!/bin/sh
-#
-# Commit the current index, fixing up the very last commit
-
-last_commit=$(git rev-list HEAD^..HEAD)
-git commit --fixup=$last_commit
-git rebase -i --autosquash HEAD~2

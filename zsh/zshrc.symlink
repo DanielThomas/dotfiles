@@ -32,13 +32,13 @@ yippee-ki-yay() {
     upgrade_dotfiles
 }
 
-# define oh-my-zsh plugins implicitly based on the topics
-plugins=("${(@f)$(find $DOTFILES -not -name '.git' -d 1 -type d -exec basename {} \;)}")
-
-plugins+=("${(@f)$(find $DOTFILES/local -not -name '.git' -d 1 -type d -exec basename {} \;)}")
+plugins=("${(@f)$(
+# define oh-my-zsh plugins implicitly based on topics
+find $DOTFILES $DOTFILES/local/ -not -name '.git' -d 1 -type d -exec basename {} \;
 
 # add any plugins defined by files
-plugins+=("${(@f)$(find -L $DOTFILES -name oh-my-zsh.plugins -d 2 -exec cat {} \;)}")
+find -L $DOTFILES -name oh-my-zsh.plugins -d 2 -exec cat {} \;
+)}")
 
 # load oh-my-zsh
 source $ZSH/oh-my-zsh.sh

@@ -39,6 +39,8 @@
     p = pull --rebase
     pm = push origin master
     ppm = !git pull --rebase && git push origin master
+    mppm = !git checkout master && git merge develop master && git ppm && git checkout develop
+    ppd = !git pull --rebase && git push origin develop
     please = push --force-with-lease
 
     cl = clean

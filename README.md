@@ -63,3 +63,13 @@ Installation steps during bootstrap can be handled in three ways:
 
 - All topic directory names are implicitly added to the plugin list, so you get `osx` and `brew` automatically
 - Plugins listed in `oh-my-zsh.plugins` files are read and added to this list
+
+## Profiling Startup Time ##
+
+If your shell is taking an excessive amount of time to start, run `zsh` with the `PROFILE_STARTUP` environment variable:
+
+    PROFILE_STARTUP=true zsh
+
+Then run `scripts/startlog.py` against the output in `/tmp` to determine the contributors to startup time. For more details, see:
+
+[https://kev.inburke.com/kevin/profiling-zsh-startup-time/](https://kev.inburke.com/kevin/profiling-zsh-startup-time/)

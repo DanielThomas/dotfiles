@@ -1,3 +1,9 @@
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    PS4=$'%D{%M%S%.} %N:%i> '
+    exec 3>&2 2> /tmp/startlog.$$
+    setopt xtrace prompt_subst
+fi
+
 ZSH=$HOME/.oh-my-zsh
 DOTFILES=$HOME/.dotfiles
 
@@ -79,3 +85,8 @@ do
 done
 
 unset config_files
+
+if [[ "$PROFILE_STARTUP" == true ]]; then
+    unsetopt xtrace
+    exec 2>&3 3>&-
+fi

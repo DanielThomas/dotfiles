@@ -5,6 +5,7 @@ gnu-sed
 httpie
 httpstat
 jq
+parallel
 the_silver_searcher
 tree
 wget

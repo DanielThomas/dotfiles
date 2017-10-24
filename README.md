@@ -45,10 +45,11 @@ These files set your shell's environment:
 The following extensions will cause files to be created in your home directory:
 
 - `*.symlink`: Automaticlly symlinked into your `$HOME` as a dot file during bootstrap. For example, `myfile.symlink` will be linked as `$HOME/.myfile`
-- `*.gitrepo`: Contains a URL to a Git repository to be cloned as a dotfile. For example `myrepo.symlink` will be cloned to `$HOME/.myrepo`
+- `*.gitrepo`: Contains a URL to a Git repository to be cloned as a dotfile. For example `myrepo.gitrepo` will be cloned to `$HOME/.myrepo`
 - `*.gitpatch`: Name `repo-<number>.gitpatch` to apply custom patches to a `gitrepo` repository
 - `*.otf`, `*.ttf`, `*.ttc`: Fonts are copied to `~/Library/Fonts` during bootstrap
 - `*.plist`: Preference lists are copied to `~/Library/Preferences` during bootstrap
+- `*.launchagent`: Files are copied to `~/Library/LaunchAgents` during bootstrap
 
 ### Installers ###
 

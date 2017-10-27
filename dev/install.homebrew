@@ -9,6 +9,7 @@ cmake
 dpkg
 gcc
 groovy
+go
 jenv
 kotlin
 makedepend

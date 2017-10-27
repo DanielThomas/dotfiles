@@ -1,2 +1,4 @@
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
-export PATH=$GROOVY_HOME/bin:$PATH
+export GOPATH=~/Projects/go
+export PATH=$GROOVY_HOME/bin:$GOPATH/bin:$PATH
+

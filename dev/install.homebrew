@@ -1,3 +1,5 @@
+android-sdk
+ant
 autoconf
 automake
 bsdmake
@@ -6,7 +8,11 @@ cloc
 cmake
 dpkg
 gcc
+groovy
+jenv
+kotlin
 makedepend
+maven
 mercurial
 node
 pkg-config

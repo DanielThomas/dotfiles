@@ -2,6 +2,7 @@ android-sdk
 ant
 autoconf
 automake
+awscli
 bsdmake
 ccache
 cloc

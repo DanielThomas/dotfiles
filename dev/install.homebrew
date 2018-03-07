@@ -22,7 +22,6 @@ pkg-config
 postgresql
 pup
 python
-python3
 redis
 ruby
 rust

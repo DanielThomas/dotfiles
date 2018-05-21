@@ -36,13 +36,13 @@
     ca = commit --amend
     commend = commit --amend --no-edit
     
-    p = pull --rebase
     pm = push origin master
     ppm = !git pull --rebase && git push origin master
     mppm = !git checkout master && git merge develop master && git ppm && git checkout develop
     ppd = !git pull --rebase && git push origin develop
     please = push --force-with-lease
-
+    purr = pull --rebase
+    
     cl = clean
     clb = !git branch -d $(git branch --merged | sed '/master/d' | sed '/*/d') && git remote prune origin
 

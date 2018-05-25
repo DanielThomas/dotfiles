@@ -12,6 +12,7 @@ httpstat
 jq
 lolcat
 md5sha1sum
+osquery
 parallel
 pkgdiff
 readline

@@ -9,9 +9,10 @@ cloc
 cmake
 dpkg
 gcc
+gdub
+go
 gradle-completion
 groovy
-go
 jenv
 kotlin
 makedepend

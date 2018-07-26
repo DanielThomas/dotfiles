@@ -42,6 +42,7 @@
     ppd = !git pull --rebase && git push origin develop
     please = push --force-with-lease
     purr = pull --rebase
+    pt = !sh -c 'git tag $1 && git push origin $1' -
     
     cl = clean
     clb = !git branch -d $(git branch --merged | sed '/master/d' | sed '/*/d') && git remote prune origin

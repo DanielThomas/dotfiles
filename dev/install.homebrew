@@ -17,6 +17,7 @@ kotlin
 makedepend
 maven
 mercurial
+mitmproxy
 node
 pkg-config
 postgresql

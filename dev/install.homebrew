@@ -12,6 +12,7 @@ gdub
 go
 gradle-completion
 groovy
+fswatch
 jenv
 kotlin
 makedepend

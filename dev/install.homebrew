@@ -13,6 +13,7 @@ go
 gradle-completion
 groovy
 fswatch
+httpstat
 jenv
 kotlin
 makedepend

@@ -23,6 +23,7 @@ mitmproxy
 node
 pkg-config
 postgresql
+pstree
 pup
 python
 redis

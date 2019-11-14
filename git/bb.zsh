@@ -13,9 +13,9 @@ bb_help(){
 }
   
 bb_browse() {
-    FETCH_URL=$(git remote -v | grep git@ | grep fetch | head -1 | cut -f2 | cut -d ' ' -f 1 | sed 's#ssh://git@##')
-    FETCH_HOST=$(echo "$FETCH_URL" | grep -o '[^:]*')
-    FETCH_PATH=$(echo "$FETCH_URL" | grep -o '/.*')
+    FETCH_URL=$(git remote get-url origin)
+    FETCH_HOST=$(echo "$FETCH_URL" | cut -d'/' -f3 | cut -d':' -f1)
+    FETCH_PATH=$(echo "$FETCH_URL" | cut -d'/' -f4-)
     PROJECT=$(echo "$FETCH_PATH" | cut -d '/' -f 2)
     REPO=$(echo "$FETCH_PATH" | cut -d '/' -f 3 | sed 's/\.git//')
     open "https://$FETCH_HOST/projects/$PROJECT/repos/$REPO/browse"

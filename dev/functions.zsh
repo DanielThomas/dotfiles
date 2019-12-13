@@ -7,7 +7,7 @@ function gradleUserHomeLocal() {
 }
 
 function gradle-profiler() {
-	~/.gradle-profiler/gradlew -b ~/.gradle-profiler/build.gradle installDist
+	~/.gradle-profiler/gradlew -b ~/.gradle-profiler/build.gradle.kts installDist
 	echo ""
 	~/.gradle-profiler/build/install/gradle-profiler/bin/gradle-profiler "$@"
 }

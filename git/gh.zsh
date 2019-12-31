@@ -17,7 +17,7 @@ gh_browse() {
 }
   
 gh_clone() {
-    git clone "ssh://git@github.com/$1.git" ~/Projects/github/$1
+    git clone --recursive "ssh://git@github.com/$1.git" ~/Projects/github/$1
     gh_cd "$1"
 }
 

@@ -23,7 +23,7 @@ bb_browse() {
   
 bb_clone() {
     : ${BB_HOST?"BB_HOST must be set"}
-    git clone "ssh://git@$BB_HOST/$1.git" ~/Projects/bb/$1
+    git clone --recursive "ssh://git@$BB_HOST/$1.git" ~/Projects/bb/$1
     bb_cd "$1"
 }
 

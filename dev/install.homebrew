@@ -10,6 +10,7 @@ dpkg
 gcc
 gdub
 go
+go@1.12
 gradle-completion
 groovy
 fswatch

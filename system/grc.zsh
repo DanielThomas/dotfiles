@@ -1,1 +1,1 @@
-source `brew --prefix`/etc/grc.bashrc
+source /usr/local/etc/grc.bashrc

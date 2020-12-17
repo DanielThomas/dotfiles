@@ -1,11 +1,8 @@
 ant
-autoconf
-automake
 awscli
 bsdmake
 ccache
 cloc
-cmake
 dpkg
 gcc
 gdub
@@ -20,13 +17,8 @@ makedepend
 maven
 mercurial
 mitmproxy
-node
-pkg-config
 postgresql
 pstree
 pup
-python
-redis
-ruby
 rust
 yarn

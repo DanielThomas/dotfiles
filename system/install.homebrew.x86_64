@@ -1,5 +1,4 @@
 asciinema
-bash
 coreutils
 curl
 dos2unix
@@ -13,7 +12,6 @@ jq
 lolcat
 parallel
 pkgdiff
-readline
 the_silver_searcher
 tree
 wget

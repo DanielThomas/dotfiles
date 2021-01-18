@@ -1,3 +1,4 @@
+ant
 autoconf
 automake
 awscli
@@ -10,9 +11,12 @@ gcc
 gdub
 go
 gradle-completion
+groovy
 httpstat
 jenv
+kotlin
 makedepend
+maven
 mercurial
 mitmproxy
 node

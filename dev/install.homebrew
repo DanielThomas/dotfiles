@@ -1,13 +1,7 @@
 ant
-autoconf
-automake
 awscli
-bsdmake
-ccache
 cloc
-cmake
 fswatch
-gcc
 gdub
 go
 gradle-completion
@@ -15,12 +9,9 @@ groovy
 httpstat
 jenv
 kotlin
-makedepend
 maven
-mercurial
 mitmproxy
 node
-pkg-config
 postgresql
 pstree
 python

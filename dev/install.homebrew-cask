@@ -1,6 +1,12 @@
 docker
 jetbrains-toolbox
-intellij-idea
+adoptopenjdk9
+adoptopenjdk10
+adoptopenjdk11
+adoptopenjdk12
+adoptopenjdk13
+adoptopenjdk14
+adoptopenjdk15
 virtualbox
 vagrant
 flux

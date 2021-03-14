@@ -1,2 +1,2 @@
 cd ~/.gw
-./install > /dev/null
+#./install > /dev/null

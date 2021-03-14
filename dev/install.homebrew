@@ -1,3 +1,5 @@
+ant
+awscli
 autoconf
 automake
 bsdmake
@@ -6,11 +8,18 @@ cloc
 cmake
 dpkg
 gcc
-makedepend
-mercurial
+gdub
+go
+gradle-completion
+groovy
+httpstat
+jenv
+kotlin
+maven
 node
 pkg-config
 postgresql
+pstree
 pup
 python
 python3

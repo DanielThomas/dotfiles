@@ -1,7 +1,7 @@
 [include]
-    path = /Users/mikemcgarr/.gitconfig_local
+    path = /Users/mmcgarr/.gitconfig_local
 [core]
-    excludesfile = /Users/mikemcgarr/.gitignore_global
+    excludesfile = /Users/mmcgarr/.gitignore_global
     pager = "diff-so-fancy | less --tabs=4 -RFX"
 [color]
 	ui = true

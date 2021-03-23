@@ -5,6 +5,7 @@ fswatch
 gdub
 go
 gradle-completion
+grex
 groovy
 httpstat
 jenv

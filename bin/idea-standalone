@@ -33,10 +33,13 @@ idea.config.path=$IDEA_CONFIG_PATH
 idea.log.path=$IDEA_LOG_PATH
 EOF
 
-IDEA_LICENSE=$(find "/Users/dannyt/Library/Application Support/JetBrains" -type f -name idea.key -print -quit)
 if [ -z "$IDEA_LICENSE" ]; then
-	echo "IDEA_LICENSE is not set to the location of the license file. Headless command that require licenses will fail and UI sessions will prompt for license information"
-else
+	IDEA_LICENSE=$(find "/Users/dannyt/Library/Application Support/JetBrains" -type f -name idea.key -print -quit)
+	if [ -z "$IDEA_LICENSE" ]; then
+		echo "IDEA_LICENSE is not set to the location of the license file. Headless command that require licenses will fail and UI sessions will prompt for license information"
+	fi
+fi
+if [ ! -z "$IDEA_LICENSE" ]; then
 	echo "Provisioning license file $IDEA_LICENSE"
 	cp "$IDEA_LICENSE" "$TMPDIR/ide-config/idea.key"
 fi

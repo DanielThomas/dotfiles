@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+if [[ -z "$IDEA_HOME" && -f /usr/local/bin/idea ]]; then
+	export IDEA_HOME=$(grep "^open" /usr/local/bin/idea | grep -o "/.*/Contents")
+fi
+if [ -z "$IDEA_HOME" ]; then
+	echo "Set the IDEA_HOME environment variable to the IDEA home"
+	exit 1
+fi
+
+IDEA_PROPERTIES_CURRENT="$IDEA_HOME/bin/idea.properties"
+
+if [ ! -f "$IDEA_PROPERTIES_CURRENT" ]; then
+	echo "Could not find $IDEA_PROPERTIES_CURRENT. Check your IDEA_HOME environment variable"
+	exit 1
+fi
+
+TMPDIR=$(mktemp -d)
+trap "rm -rf $TMPDIR" EXIT
+
+export IDEA_PROPERTIES="$TMPDIR/ide.properties"
+
+IDEA_SYSTEM_PATH="$TMPDIR/ide-system"
+IDEA_CONFIG_PATH="$TMPDIR/ide-config"
+IDEA_LOG_PATH="$TMPDIR/ide-log"
+
+mkdir "$IDEA_SYSTEM_PATH" "$IDEA_CONFIG_PATH" "$IDEA_LOG_PATH"
+cp "$IDEA_PROPERTIES_CURRENT" "$IDEA_PROPERTIES"
+cat << EOF >> "$IDEA_PROPERTIES"
+idea.system.path=$IDEA_SYSTEM_PATH
+idea.config.path=$IDEA_CONFIG_PATH
+idea.log.path=$IDEA_LOG_PATH
+EOF
+
+IDEA_LICENSE=$(find "/Users/dannyt/Library/Application Support/JetBrains" -type f -name idea.key -print -quit)
+if [ -z "$IDEA_LICENSE" ]; then
+	echo "IDEA_LICENSE is not set to the location of the license file. Headless command that require licenses will fail and UI sessions will prompt for license information"
+else
+	echo "Provisioning license file $IDEA_LICENSE"
+	cp "$IDEA_LICENSE" "$TMPDIR/ide-config/idea.key"
+fi
+
+echo "Running standalone IDEA instance using $IDEA_PROPERTIES"
+
+"$IDEA_HOME/MacOS/idea" $@

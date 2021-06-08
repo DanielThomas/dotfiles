@@ -15,7 +15,7 @@ mitmproxy
 node
 postgresql
 pstree
-python
+python@3.9
 redis
 ruby
 rust

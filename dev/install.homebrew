@@ -2,7 +2,7 @@ ant
 awscli
 cloc
 fswatch
-gdub
+gng
 go
 gradle-completion
 grex

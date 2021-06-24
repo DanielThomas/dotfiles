@@ -1,6 +1,7 @@
 ant
 awscli
 cloc
+dpkg
 fswatch
 gng
 go
@@ -15,6 +16,7 @@ mitmproxy
 node
 postgresql
 pstree
+pup
 python@3.9
 redis
 ruby

@@ -1,5 +1,5 @@
 [include]
-    path = /Users/dannyt/.gitconfig_local
+    path = .gitconfig_local
 [core]
     excludesfile = /Users/dannyt/.gitignore_global
     pager = "diff-so-fancy | less --tabs=4 -RFX"

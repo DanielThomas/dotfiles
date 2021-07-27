@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+e#!/usr/bin/env bash
 set -eo pipefail
 
 if [[ -z "$IDEA_HOME" && -f /usr/local/bin/idea ]]; then
@@ -34,7 +34,7 @@ idea.log.path=$IDEA_LOG_PATH
 EOF
 
 if [ -z "$IDEA_LICENSE" ]; then
-	IDEA_LICENSE=$(find "/Users/dannyt/Library/Application Support/JetBrains" -type f -name idea.key -print -quit)
+	IDEA_LICENSE=$(find "$HOME/Library/Application Support/JetBrains" -type f -name idea.key -print -quit)
 	if [ -z "$IDEA_LICENSE" ]; then
 		echo "IDEA_LICENSE is not set to the location of the license file. Headless command that require licenses will fail and UI sessions will prompt for license information"
 	fi

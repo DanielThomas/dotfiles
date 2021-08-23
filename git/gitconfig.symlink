@@ -50,6 +50,7 @@
     co = checkout
     br = branch
     bra = branch -ra
+    sw = switch
 
     # list commands
     le = log --oneline --decorate

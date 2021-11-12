@@ -1,1 +1,1 @@
-source "$HOMEBREW_PREFIX/etc/grc.bashrc"
+source "$HOMEBREW_PREFIX/etc/grc.zsh"

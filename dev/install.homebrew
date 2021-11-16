@@ -1,6 +1,7 @@
 ant
 awscli
 cloc
+dive
 dpkg
 fswatch
 gng

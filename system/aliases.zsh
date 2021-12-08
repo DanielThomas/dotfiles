@@ -11,3 +11,5 @@ alias cd..="cd .."
 alias top="top -o cpu"
 
 alias tf="tail -f"
+
+alias fl="fleet"

@@ -1,5 +1,6 @@
 ant
 awscli
+bfg
 cloc
 dive
 dpkg

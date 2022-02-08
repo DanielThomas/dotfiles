@@ -1,13 +1,13 @@
 [include]
     path = .gitconfig_local
 [core]
-    excludesfile = /Users/dannyt/.gitignore_global
+    excludesfile = .gitignore_global
     pager = "diff-so-fancy | less --tabs=4 -RFX"
 [diff-so-fancy]
     markEmptyLines = false
-	first-run = false
+    first-run = false
 [color]
-	ui = true
+    ui = true
 [credential]
     helper = osxkeychain
 [push]
@@ -16,9 +16,14 @@
     ff = only
 [pull]
     default = current
-	ff = only
+    ff = only
 [rebase]
     autosquash = true
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 [alias]
     aliases = config --get-regexp alias 
 
@@ -122,9 +127,3 @@
 
     #grumble
     ffs = "!git all && git commit --amend"
-
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true

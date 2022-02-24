@@ -10,6 +10,8 @@
     ui = true
 [credential]
     helper = osxkeychain
+[init]
+    defaultBranch = main
 [push]
     default = current
 [merge]
@@ -127,3 +129,4 @@
 
     #grumble
     ffs = "!git all && git commit --amend"
+

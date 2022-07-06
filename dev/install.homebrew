@@ -12,6 +12,7 @@ gradle-completion
 grex
 groovy
 httpstat
+hyperfine
 jenv
 kotlin
 maven

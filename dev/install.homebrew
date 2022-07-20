@@ -17,6 +17,7 @@ jenv
 kotlin
 maven
 mitmproxy
+moreutils
 node
 postgresql
 pstree

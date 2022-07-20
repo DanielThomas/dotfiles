@@ -11,7 +11,7 @@ httpie
 httpstat
 jq
 lolcat
-parallel
+moreutils
 pkgdiff
 readline
 the_silver_searcher

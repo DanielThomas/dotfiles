@@ -4,6 +4,5 @@
 *.iml
 *.iws
 out/
-classes/
 *.hprof
 *.hprof.*

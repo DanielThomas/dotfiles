@@ -1,4 +1,4 @@
-e#!/usr/bin/env bash
+#!/usr/bin/env bash
 set -eo pipefail
 
 if [[ -z "$IDEA_HOME" && -f /usr/local/bin/idea ]]; then

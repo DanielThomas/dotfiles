@@ -1,0 +1,1 @@
+unsetopt share_history

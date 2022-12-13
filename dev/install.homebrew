@@ -18,7 +18,7 @@ kotlin
 maven
 mitmproxy
 node
-postgresql
+postgresql@14
 pstree
 pup
 python@3.9

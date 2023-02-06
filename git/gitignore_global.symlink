@@ -6,3 +6,4 @@
 out/
 *.hprof
 *.hprof.*
+.java-version

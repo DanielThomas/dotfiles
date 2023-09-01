@@ -5,6 +5,9 @@ bfg
 cloc
 dive
 dpkg
+docker
+docker-compose
+docker-buildx
 fswatch
 gng
 go

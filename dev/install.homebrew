@@ -29,4 +29,5 @@ python@3.9
 redis
 ruby
 rust
+shellcheck
 yarn

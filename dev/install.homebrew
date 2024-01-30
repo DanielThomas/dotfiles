@@ -19,7 +19,6 @@ hyperfine
 jenv
 kotlin
 maven
-mitmproxy
 node
 pack
 postgresql@14

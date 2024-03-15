@@ -13,7 +13,7 @@ ghe_help(){
 }
   
 ghe_browse() {
-    open `git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@'`| head -n1
+    open $(git config --get remote.origin.url)
 }
   
 ghe_clone() {

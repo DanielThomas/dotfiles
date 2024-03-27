@@ -1,5 +1,7 @@
 # overrides for ls
-alias ls="gls -F --color=auto"
+if ! which dircolors > /dev/null; then
+	alias ls="gls -F --color=auto"
+fi
 alias l="ls -lAh --color=auto"
 alias ll="ls -l --color=auto"
 alias la="ls -A --color=auto"

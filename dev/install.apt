@@ -1,1 +1,17 @@
+autoconf
+automake
+ccache
+gcc-11
 grc
+g++-11
+libasound2-dev
+libcups2-dev
+libfontconfig1-dev
+libx11-dev
+libxext-dev
+libxrender-dev
+libxrandr-dev
+libxtst-dev
+libxt-dev
+unzip
+

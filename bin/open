@@ -1,8 +1,7 @@
 #!/bin/sh
 
 if [[ "Darwin" == "$(uname)" ]]; then
-	/usr/bin/open $@
+	/usr/bin/open "$@"
 else
-	xdg-open $@
+	xdg-open "$@"
 fi
-

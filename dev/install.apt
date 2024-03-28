@@ -13,6 +13,6 @@ libxrender-dev
 libxrandr-dev
 libxtst-dev
 libxt-dev
+psmisc
 silversearcher-ag
 unzip
-

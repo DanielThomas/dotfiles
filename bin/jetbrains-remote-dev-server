@@ -31,10 +31,11 @@ if [ -z "$IDE_PATH" ]; then
 	exit 1
 fi
 
-IDEA_DIR="$PROJECT_PATH/.idea"
-mkdir -p "$IDEA_DIR"
+LOG_DIR="$HOME/.cache/JetBrains/RemoteDev"
+mkdir -p "$LOG_DIR"
+LOG_FILE="$LOG_DIR/launcher-remove-dev-server.log"
 
-("$IDE_PATH/bin/remote-dev-server.sh" run "$PROJECT_PATH" --ssh-link-host "$REMOTE_DEV_HOST" --ssh-link-user "$REMOTE_DEV_USER" --ssh-link-port 22 > "$IDEA_DIR/remote-dev-server.log" 2>&1) &
+("$IDE_PATH/bin/remote-dev-server.sh" run "$PROJECT_PATH" --ssh-link-host "$REMOTE_DEV_HOST" --ssh-link-user "$REMOTE_DEV_USER" --ssh-link-port 22 >> "$LOG_FILE" 2>&1) &
 
 IDE_PATH_ENCODED=$(echo "$IDE_PATH" | sed 's#/#%2F#g')
 PROJECT_PATH_ENCODED=$(echo "$PROJECT_PATH" | sed 's#/#%2F#g')

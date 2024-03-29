@@ -4,6 +4,7 @@ coreutils
 curl
 dos2unix
 findutils
+flock
 fpp
 gnu-sed
 grc

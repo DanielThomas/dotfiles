@@ -1,3 +1,2 @@
-#!/bin/sh
-LAUNCHER=$(basename "$0")
-source "$(dirname "$0")/jetbrains-launcher"
+#!/usr/bin/env bash
+source "$(dirname "${BASH_SOURCE[0]}")/jetbrains-launcher"

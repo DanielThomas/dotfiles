@@ -1,11 +1,9 @@
-# intended to be sourced from actual launcher script
+# intended to be sourced from actual launcher script: 'source "$(dirname "${BASH_SOURCE[0]}")/jetbrains-launcher"'
 
-if [ -z "$LAUNCHER" ]; then
-	echo "LAUNCHER variable not set"
-	exit 1
-fi
+LAUNCHER=$(basename $0)
 
-if [ -z $1 ]; then
+PROJECT_DIR="$1"
+if [ -z "$PROJECT_DIR" ]; then
 	PROJECT_DIR=$(pwd)
 fi
 PROJECT_DIR=$(readlink -f $PROJECT_DIR)

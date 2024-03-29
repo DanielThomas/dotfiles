@@ -1,0 +1,27 @@
+# intended to be sourced from actual launcher script
+
+if [ -z "$LAUNCHER" ]; then
+	echo "LAUNCHER variable not set"
+	exit 1
+fi
+
+if [ -z $1 ]; then
+	PROJECT_DIR=$(pwd)
+fi
+PROJECT_DIR=$(readlink -f $PROJECT_DIR)
+if [ ! -d "$PROJECT_DIR" ]; then
+	echo "project directory $PROJECT_DIR does not exist"
+	exit 1
+fi
+
+if [ ! -z "$CODER_WORKSPACE_NAME" ]; then
+	jetbrains-remote-dev-server "$LAUNCHER" "$PROJECT_DIR"
+else
+	DEFAULT_LAUNCHER=$(which -a idea | grep -v "$0" | head -1)
+	if [ ! -z "$DEFAULT_LAUNCHER" ]; then
+		eval "$DEFAULT_LAUNCHER $PROJECT_DIR"
+	else
+		echo "could not find default launcher for $LAUNCHER"
+		exit 1
+	fi
+fi

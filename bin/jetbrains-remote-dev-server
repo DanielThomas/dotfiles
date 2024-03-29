@@ -1,0 +1,42 @@
+#!/bin/bash
+
+REMOTE_DEV_USER=$(whoami)
+REMOTE_DEV_HOST=$(hostname)
+if [ ! -z "$CODER_WORKSPACE_NAME" ]; then
+	CODER_AGENT_NAME=$(echo $WORK_AGENT_URL | awk -F '[/:]' '{print $4}')
+	REMOTE_DEV_HOST="coder-jetbrains--$CODER_WORKSPACE_NAME.$CODER_WORKSPACE_AGENT_NAME--$CODER_AGENT_NAME"
+fi
+
+IDE=$1
+if [ -z "$IDE" ]; then
+	echo "IDE not specified"
+	exit 1
+fi
+
+PROJECT_PATH=$2
+if [ ! -d "$PROJECT_PATH" ]; then
+	PROJECT_PATH=$(pwd)
+fi
+PROJECT_PATH=$(readlink -f "$PROJECT_PATH")
+
+REMOTE_DEV_DIST="$HOME/.cache/JetBrains/RemoteDev/dist"
+if [ ! -d "$REMOTE_DEV_DIST" ]; then
+	echo "remote distributions directory '$REMOTE_DEV_DIST' does not exist"
+	exit 1
+fi
+
+IDE_PATH=$(find "$HOME/.cache/JetBrains/RemoteDev/dist" -maxdepth 1 -type d | grep "_$IDE" | tail -1)
+if [ -z "$IDE_PATH" ]; then
+	echo "could not find installation for $IDE. Install via JetBrains Gateway"
+	exit 1
+fi
+
+IDEA_DIR="$PROJECT_PATH/.idea"
+mkdir -p "$IDEA_DIR"
+
+("$IDE_PATH/bin/remote-dev-server.sh" run "$PROJECT_PATH" --ssh-link-host "$REMOTE_DEV_HOST" --ssh-link-user "$REMOTE_DEV_USER" --ssh-link-port 22 > "$IDEA_DIR/remote-dev-server.log" 2>&1) &
+
+IDE_PATH_ENCODED=$(echo "$IDE_PATH" | sed 's#/#%2F#g')
+PROJECT_PATH_ENCODED=$(echo "$PROJECT_PATH" | sed 's#/#%2F#g')
+
+open "jetbrains-gateway://connect#idePath=$IDE_PATH_ENCODED&projectPath=$PROJECT_PATH_ENCODED&host=$REMOTE_DEV_HOST&port=22&user=$REMOTE_DEV_USER&type=ssh&deploy=false&newUi=true"

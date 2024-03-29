@@ -1,2 +1,7 @@
 #!/bin/sh
-echo "$@" | nc 127.0.0.1 52699 2> /dev/null
+
+if [ ! -z "$CODER_WORKSPACE_NAME" ]; then
+	echo "$@" | nc 127.0.0.1 52699 2> /dev/null
+else
+	/usr/bin/xdg-open "$@"
+fi

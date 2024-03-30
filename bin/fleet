@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+project_dir="$1"
+if [ -z "$project_dir" ]; then
+	project_dir=$(pwd)
+fi
+
+if [ ! -z "$CODER_WORKSPACE_NAME" ]; then
+	dest_dir="$HOME/.local/lib"
+	mkdir -p "$dest_dir"
+	dest="$dest_dir/fleet"
+	if [ ! -f "$dest" ]; then
+		echo "Bootstrapping Fleet launcher..."
+		arch=$(arch)
+		if [[ "x86_64" == "$arch" ]]; then
+			arch="x64"
+		fi
+		curl -LSs "https://download.jetbrains.com/product?code=FLL&release.type=preview&release.type=eap&platform=linux_$arch" --output "$dest" && chmod +x "$dest"
+	fi
+	eval "$dest launch workspace -- --auth=accept-everyone --projectDir=$project_dir"
+else
+	default_launcher=$(which -a idea | grep -v "$0" | head -1)
+	if [ ! -z "$default_launcher" ]; then
+		eval "$default_launcher $project_dir"
+	else
+		echo "Could not find default Fleet launcher"
+		exit 1
+	fi
+fi

@@ -8,20 +8,20 @@ fi
 if [ ! -z "$CODER_WORKSPACE_NAME" ]; then
 	dest_dir="$HOME/.local/lib"
 	mkdir -p "$dest_dir"
-	dest="$dest_dir/fleet"
-	if [ ! -f "$dest" ]; then
+	launcher="$dest_dir/fleet"
+	if [ ! -f "$launcher" ]; then
 		echo "Bootstrapping Fleet launcher..."
 		arch=$(arch)
 		if [[ "x86_64" == "$arch" ]]; then
 			arch="x64"
 		fi
-		curl -LSs "https://download.jetbrains.com/product?code=FLL&release.type=preview&release.type=eap&platform=linux_$arch" --output "$dest" && chmod +x "$dest"
+		curl -LSs "https://download.jetbrains.com/product?code=FLL&release.type=preview&release.type=eap&platform=linux_$arch" --output "$launcher" && chmod +x "$launcher"
 	fi
-	eval "$dest launch workspace -- --auth=accept-everyone --projectDir=$project_dir"
+	($launcher launch workspace -- --auth=accept-everyone --projectDir=$(pwd) 2>&1 &) | grep -m 1 'Join this workspace using URL' | grep -o 'http.*' | open
 else
 	default_launcher=$(which -a idea | grep -v "$0" | head -1)
 	if [ ! -z "$default_launcher" ]; then
-		eval "$default_launcher $project_dir"
+		$default_launcher $project_dir
 	else
 		echo "Could not find default Fleet launcher"
 		exit 1

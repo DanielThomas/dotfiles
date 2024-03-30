@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -- "${1:-$(</dev/stdin)}" "${@:2}"
+
 if [[ "Darwin" == "$(uname)" ]]; then
 	/usr/bin/open "$@"
 else

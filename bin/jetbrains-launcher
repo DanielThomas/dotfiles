@@ -15,7 +15,7 @@ fi
 if [ ! -z "$CODER_WORKSPACE_NAME" ]; then
 	jetbrains-remote-dev-server "$LAUNCHER" "$PROJECT_DIR"
 else
-	DEFAULT_LAUNCHER=$(which -a idea | grep -v "$0" | head -1)
+	DEFAULT_LAUNCHER=$(which -a "$LAUNCHER" | grep -v "$0" | head -1)
 	if [ ! -z "$DEFAULT_LAUNCHER" ]; then
 		eval "$DEFAULT_LAUNCHER $PROJECT_DIR"
 	else

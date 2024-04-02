@@ -1,9 +1,10 @@
 .DS_Store
-.idea
+.idea/
+.fleet/
+out/
 *.ipr
 *.iml
 *.iws
-out/
 *.hprof
 *.hprof.*
 .java-version

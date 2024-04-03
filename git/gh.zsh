@@ -1,5 +1,3 @@
-#!/bin/sh
-  
 gh_help(){
     echo "Usage: gh <subcommand> [options]\n"
     echo "Subcommands:"
@@ -17,7 +15,12 @@ gh_browse() {
 }
   
 gh_clone() {
-    git clone --recursive "ssh://git@github.com/$1.git" ~/Projects/github/$1
+    if [[ "$1" == corp/* ]]; then
+        : ${GHE_HOST?"GHE_HOST must be set"}
+        git clone --recursive "https://$GHE_HOST/$1.git" ~/Projects/github/$1
+    else
+        git clone --recursive "ssh://git@github.com/$1.git" ~/Projects/github/$1
+    fi
     gh_cd "$1"
 }
 

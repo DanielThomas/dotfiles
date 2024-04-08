@@ -1,4 +1,4 @@
-if [ ! -z "$CODER_WORKSPACE_NAME" ]; then
+if [ -z "$CODER_WORKSPACE_NAME" ]; then
 	export JENV_HOME="$HOME/.jenv"
 	export PATH=$JENV_HOME/bin:$PATH
 

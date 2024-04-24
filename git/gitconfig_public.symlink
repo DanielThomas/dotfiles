@@ -129,3 +129,4 @@
     #grumble
     ffs = "!git all && git commit --amend"
 
+    root = rev-parse --show-toplevel

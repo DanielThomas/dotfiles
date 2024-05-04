@@ -25,7 +25,6 @@ pack
 postgresql@14
 protobuf
 pstree
-pup
 python@3.9
 redis
 ruby

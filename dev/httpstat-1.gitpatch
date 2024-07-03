@@ -1,0 +1,16 @@
+From f7420b865a49eee3ab5ca4e5d7d32a8ba62b4295 Mon Sep 17 00:00:00 2001
+From: Danny Thomas <dannyt@netflix.com>
+Date: Wed, 3 Jul 2024 05:00:24 +0000
+Subject: [PATCH] Fix execute bit
+
+---
+ httpstat.py | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ mode change 100644 => 100755 httpstat.py
+
+diff --git a/httpstat.py b/httpstat.py
+old mode 100644
+new mode 100755
+-- 
+2.45.2
+

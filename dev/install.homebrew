@@ -16,7 +16,6 @@ go
 gradle-completion
 grex
 groovy
-httpstat
 hyperfine
 kotlin
 maven

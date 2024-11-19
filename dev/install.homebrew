@@ -1,6 +1,6 @@
 ant
 awscli
-bazel
+bazelisk
 bfg
 cloc
 dive

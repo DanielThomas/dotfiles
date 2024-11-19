@@ -1,6 +1,7 @@
 autoconf
 automake
 ccache
+clang
 gcc-11
 grc
 g++-11
@@ -13,3 +14,4 @@ libxrender-dev
 libxrandr-dev
 libxtst-dev
 libxt-dev
+lld

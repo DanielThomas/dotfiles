@@ -2,6 +2,7 @@ autoconf
 automake
 ccache
 clang
+graphviz
 gcc-11
 grc
 g++-11
@@ -15,3 +16,4 @@ libxrandr-dev
 libxtst-dev
 libxt-dev
 lld
+pandoc

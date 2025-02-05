@@ -11,7 +11,6 @@ docker-buildx
 fswatch
 git
 git-lfs
-gng
 go
 gradle-completion
 grex

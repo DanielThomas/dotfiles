@@ -9,6 +9,7 @@ docker
 docker-compose
 docker-buildx
 fswatch
+gng
 git
 git-lfs
 go

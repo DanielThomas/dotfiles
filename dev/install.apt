@@ -11,6 +11,7 @@ libcups2-dev
 libfontconfig1-dev
 libx11-dev
 libxext-dev
+libxml2-utils
 libxrender-dev
 libxrandr-dev
 libxtst-dev

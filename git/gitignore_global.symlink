@@ -7,3 +7,5 @@ out/
 *.hprof
 *.hprof.*
 .java-version
+.claude/
+CLAUDE.local.md

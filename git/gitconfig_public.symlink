@@ -139,6 +139,6 @@
     theirs = "!f() { git co --theirs $@ && git add $@; }; f"
 
     #grumble
-    ffs = "!git all && git commit --amend"
+    ffs = "!git all && git commit --amend --no-edit"
 
     root = rev-parse --show-toplevel

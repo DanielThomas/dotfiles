@@ -1,3 +1,3 @@
-if [[ "Darwin" == "$(uname)" ]]; the
+if [[ "Darwin" == "$(uname)" ]]; then
 	export PATH="$HOME/.local/bin:$PATH"
 fi

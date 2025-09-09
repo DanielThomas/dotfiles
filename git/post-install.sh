@@ -1,1 +1,1 @@
-gh completion -s zsh > "$ZSH_CACHE_DIR/completions/_gh"
+gh completion -s zsh > "$HOME/.oh-my-zsh/cache/completions/_gh"

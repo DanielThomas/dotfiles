@@ -55,10 +55,10 @@
     commend = commit --amend --no-edit
     
     pm = push origin master
+    fp = push --force-with-lease
     ppm = !git pull --rebase && git push origin master
     mppm = !git checkout master && git merge develop master && git ppm && git checkout develop
     ppd = !git pull --rebase && git push origin develop
-    please = push --force-with-lease
     purr = pull --rebase
     pt = !sh -c 'git tag $1 && git push --atomic origin $(git branch --show-current) $1' -
     

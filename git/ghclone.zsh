@@ -7,7 +7,11 @@ ghclone() {
     else
         repodir="$GITHUB_DIR/$1"
         if [ ! -d "$repodir" ]; then
-            gh repo clone "$1" "$repodir"
+            if [[ "$1" == corp/* ]]; then
+                gh repo clone "$1" "$repodir"
+            else
+                GH_HOST=github.com gh repo clone "$1" "$repodir"
+            fi
         fi
         cd "$repodir"
     fi

@@ -8,4 +8,5 @@ out/
 *.hprof.*
 .java-version
 .air/
-.claude/settings.local.json
+.claude/*.local.json
+.claude/*.local.md

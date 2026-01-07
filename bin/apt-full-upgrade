@@ -1,4 +1,6 @@
 #!/bin/sh
 
+# In lieu of https://bugs.launchpad.net/ubuntu/+source/apt/+bug/1709603
+
 apt update
 apt full-upgrade

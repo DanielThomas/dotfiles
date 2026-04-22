@@ -10,3 +10,4 @@ out/
 .air/
 .claude/*.local.json
 .claude/*.local.md
+.claude/scheduled_tasks.lock

@@ -1,3 +1,5 @@
+export COLORTERM=truecolor
+
 # Colors/GNU ls
 if which dircolors > /dev/null; then
 	eval `dircolors -b $HOME/.dircolors-solarized/dircolors.256dark`

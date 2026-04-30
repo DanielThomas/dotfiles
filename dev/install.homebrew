@@ -25,6 +25,7 @@ protobuf
 pstree
 python@3.9
 redis
+ripgrep
 ruby
 rust
 shellcheck

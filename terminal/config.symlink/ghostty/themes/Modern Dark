@@ -1,0 +1,25 @@
+# Modern Dark - ported from modern-dark.itermcolors
+
+palette = 0=#0c0c0c
+palette = 1=#dd7a5f
+palette = 2=#64c2b3
+palette = 3=#f97316
+palette = 4=#55779b
+palette = 5=#c26b3b
+palette = 6=#7ea3c7
+palette = 7=#7ea3c7
+palette = 8=#33516a
+palette = 9=#e8967f
+palette = 10=#8ad4c8
+palette = 11=#fdba74
+palette = 12=#7ea3c7
+palette = 13=#fb923c
+palette = 14=#a3c0d9
+palette = 15=#f9fafb
+
+background = #111e2a
+foreground = #e5e7eb
+cursor-color = #f97316
+cursor-text = #0c0c0c
+selection-background = #27445d
+selection-foreground = #e5e7eb

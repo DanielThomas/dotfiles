@@ -6,6 +6,10 @@ window-colorspace = display-p3
 keybind = super+alt+left=previous_tab
 keybind = super+alt+right=next_tab
 
+cursor-style = block
+cursor-style-blink = false
+
 copy-on-select = clipboard
 
-shell-integration-features = ssh-env
+# the ssh shell integrations aren't effective enough
+term = xterm-256color

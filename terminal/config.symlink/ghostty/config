@@ -7,3 +7,5 @@ keybind = super+alt+left=previous_tab
 keybind = super+alt+right=next_tab
 
 copy-on-select = clipboard
+
+shell-integration-features = ssh-env

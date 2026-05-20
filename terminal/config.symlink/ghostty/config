@@ -1,0 +1,7 @@
+font-family = MesloLGS NF
+font-size = 15
+theme = "Modern Dark"
+window-colorspace = display-p3
+
+keybind = super+alt+left=previous_tab
+keybind = super+alt+right=next_tab

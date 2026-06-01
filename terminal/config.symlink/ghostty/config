@@ -6,8 +6,9 @@ window-colorspace = display-p3
 keybind = super+alt+left=previous_tab
 keybind = super+alt+right=next_tab
 
-cursor-style = block
+cursor-style = underline
 cursor-style-blink = false
+adjust-cursor-thickness = 1
 
 copy-on-select = clipboard
 

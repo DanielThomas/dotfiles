@@ -9,6 +9,7 @@ keybind = super+alt+right=next_tab
 cursor-style = underline
 cursor-style-blink = false
 adjust-cursor-thickness = 1
+shell-integration-features = no-cursor
 
 copy-on-select = clipboard
 

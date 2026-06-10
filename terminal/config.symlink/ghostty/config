@@ -15,3 +15,6 @@ copy-on-select = clipboard
 
 # the ssh shell integrations aren't effective enough
 term = xterm-256color
+
+# and kitty is a nightmare on zsh/powerlevel10k
+keyproto = xterm

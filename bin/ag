@@ -1,0 +1,310 @@
+#!/usr/bin/env bash
+#
+# ag shim — translates ag (the silver searcher) options to rg (ripgrep).
+#
+# Covers the most commonly used ag options. Unsupported options produce an
+# error rather than silently misbehaving. Combined short flags (e.g. -iQ)
+# are not supported — use -i -Q instead.
+#
+# Notable differences:
+#   - ag -g PATTERN (filename search) is emulated via rg --files | rg
+#   - ag -G (file search regex) pre-filters files via rg --files | rg
+#   - ag -u is a single level; rg needs -uuu for the same effect
+
+set -euo pipefail
+
+if [[ $# -eq 0 ]]; then
+    cat <<'EOF'
+Usage: ag [FILE-TYPE] [OPTIONS] PATTERN [PATH]
+
+  ag shim — translates ag (the silver searcher) options to rg (ripgrep).
+
+Example:
+  ag -i foo /bar/
+  ag --python class .
+  ag -G '\.java$' pattern src/
+
+For ag file types:   ag --list-file-types
+For rg native help:  rg --help
+EOF
+    exit 1
+fi
+
+flags=()              # translated rg flags
+positionals=()        # positional args (pattern, then paths)
+filename_mode=false   # ag -g: print matching filenames only
+filename_pattern=""
+file_search_regex=""  # ag -G: restrict search to files matching regex
+
+# Returns 0 if the argument looks like a decimal number.
+is_number() { [[ ${1:-} =~ ^[0-9]+$ ]]; }
+
+# Try to convert a simple ag file-search regex to an rg glob.
+# Sets AG_GLOB_RESULT and returns 0 on success, 1 if the regex is
+# too complex for a reliable glob conversion.
+#
+# Handles the common cases:
+#   \.py$      -> *.py        (extension filter)
+#   test       -> *test*      (substring match)
+#   ^Makefile  -> Makefile*   (prefix match)
+#   \.test\.   -> *.test.*    (contains .test.)
+AG_GLOB_RESULT=""
+ag_regex_to_glob() {
+    local re="$1"
+    local anchored_start=false anchored_end=false
+
+    # Strip anchors, note their presence
+    if [[ "$re" == '^'* ]]; then
+        anchored_start=true
+        re="${re#^}"
+    fi
+    if [[ "$re" == *'$' ]]; then
+        anchored_end=true
+        re="${re%\$}"
+    fi
+
+    # Replace \. with a placeholder, then check for remaining regex syntax
+    local simplified="${re//\\./§}"
+
+    # Bail if anything regex-specific remains (use glob tests — regex
+    # character classes are unreliable across bash versions)
+    if [[ "$simplified" == *'('*  || "$simplified" == *')'*  || \
+          "$simplified" == *'|'*  || "$simplified" == *'+'*  || \
+          "$simplified" == *'?'*  || "$simplified" == *'{'*  || \
+          "$simplified" == *'}'*  || "$simplified" == *'['*  || \
+          "$simplified" == *']'*  || "$simplified" == *'\'*  || \
+          "$simplified" == *'.'*  || "$simplified" == *'*'*  ]]; then
+        return 1
+    fi
+
+    # Restore \. -> . (dots are literal in globs, no escaping needed)
+    local glob="${simplified//§/.}"
+
+    # Add glob wildcards based on anchoring
+    if ! $anchored_start; then glob="*${glob}"; fi
+    if ! $anchored_end;   then glob="${glob}*"; fi
+
+    AG_GLOB_RESULT="$glob"
+    return 0
+}
+
+# Map an ag file type flag (e.g. "python") to rg flags.
+# Appends to the flags array. Returns 1 if not a known type.
+map_file_type() {
+    local ag_type="$1"
+    local mapping=""
+
+    # ag types that map to a different rg built-in name, or need
+    # custom definitions (prefixed with = and colon-separated globs).
+    # Types with the same name in ag and rg are omitted — the fallback
+    # below handles them via rg --type-list.
+    case "$ag_type" in
+        # ag name differs from rg name
+        cc)                 mapping="c" ;;
+        cfmx)               mapping="cfml" ;;
+        coffee)             mapping="coffeescript" ;;
+        delphi)             mapping="pascal" ;;
+        dlang)              mapping="d" ;;
+        handlebars)         mapping="hbs" ;;
+        hh)                 mapping="h" ;;
+        ini)                mapping="config" ;;
+        ipython)            mapping="jupyter" ;;
+        jinja2)             mapping="jinja" ;;
+        proto)              mapping="protobuf" ;;
+        restructuredtext)   mapping="rst" ;;
+        rs)                 mapping="rust" ;;
+        scheme)             mapping="lisp" ;;
+        shell)              mapping="sh" ;;
+        terraform)          mapping="tf" ;;
+        # no rg built-in — define via extensions
+        actionscript)       mapping="=*.as:*.mxml" ;;
+        apl)                mapping="=*.apl" ;;
+        bro)                mapping="=*.bro:*.bif" ;;
+        chpl)               mapping="=*.chpl" ;;
+        dot)                mapping="=*.dot:*.gv" ;;
+        factor)             mapping="=*.factor" ;;
+        gettext)            mapping="=*.po:*.pot:*.mo" ;;
+        glsl)               mapping="=*.vert:*.tesc:*.tese:*.geom:*.frag:*.comp" ;;
+        haxe)               mapping="=*.hx" ;;
+        isabelle)           mapping="=*.thy" ;;
+        j)                  mapping="=*.ijs" ;;
+        jade)               mapping="=*.jade" ;;
+        jsp)                mapping="=*.jsp:*.jspx:*.jhtm:*.jhtml:*.jspf:*.tag:*.tagf" ;;
+        liquid)             mapping="=*.liquid" ;;
+        mason)              mapping="=*.mas:*.mhtml:*.mpl:*.mtxt" ;;
+        mathematica)        mapping="=*.m:*.wl" ;;
+        mercury)            mapping="=*.m:*.moo" ;;
+        naccess)            mapping="=*.asa:*.rsa" ;;
+        octave)             mapping="=*.m" ;;
+        parrot)             mapping="=*.pir:*.pasm:*.pmc:*.ops:*.pod:*.pg:*.tg" ;;
+        pdb)                mapping="=*.pdb" ;;
+        pike)               mapping="=*.pike:*.pmod" ;;
+        plist)              mapping="=*.plist" ;;
+        plone)              mapping="=*.pt:*.cpt:*.metadata:*.cpy:*.py:*.xml:*.zcml" ;;
+        pug)                mapping="=*.pug" ;;
+        rake)               mapping="=*.Rakefile" ;;
+        salt)               mapping="=*.sls" ;;
+        smalltalk)          mapping="=*.st" ;;
+        stata)              mapping="=*.do:*.ado" ;;
+        tla)                mapping="=*.tla" ;;
+        tt)                 mapping="=*.tt:*.tt2:*.ttml" ;;
+        velocity)           mapping="=*.vm:*.vtl:*.vsl" ;;
+        wadl)               mapping="=*.wadl" ;;
+        wix)                mapping="=*.wxi:*.wxs" ;;
+        wsdl)               mapping="=*.wsdl" ;;
+    esac
+
+    if [[ -z "$mapping" ]]; then
+        # No explicit mapping — try as a built-in rg type directly
+        if rg --type-list 2>/dev/null | grep -q "^${ag_type}:"; then
+            flags+=(-t "$ag_type")
+            return 0
+        fi
+        return 1
+    fi
+
+    if [[ "$mapping" == =* ]]; then
+        # Custom type defined by extensions (=*.ext1:*.ext2:...)
+        local globs="${mapping#=}"
+        local tname="custom${ag_type}"
+        IFS=: read -ra parts <<< "$globs"
+        for glob in "${parts[@]}"; do
+            flags+=(--type-add "${tname}:${glob}")
+        done
+        flags+=(-t "$tname")
+    else
+        # Maps to a different rg built-in type name
+        flags+=(-t "$mapping")
+    fi
+    return 0
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        # ── Output ────────────────────────────────────────────────────
+        -A|--after)
+            if is_number "${2:-}"; then
+                flags+=(-A "$2"); shift 2
+            else
+                flags+=(-A 2); shift          # ag defaults to 2
+            fi ;;
+        -B|--before)
+            if is_number "${2:-}"; then
+                flags+=(-B "$2"); shift 2
+            else
+                flags+=(-B 2); shift
+            fi ;;
+        -C|--context)
+            if is_number "${2:-}"; then
+                flags+=(-C "$2"); shift 2
+            else
+                flags+=(-C 2); shift
+            fi ;;
+        -c|--count)              flags+=(--count); shift ;;
+        --color)                 flags+=(--color=always); shift ;;
+        --nocolor)               flags+=(--color=never); shift ;;
+        --column)                flags+=(--column); shift ;;
+        -H|--heading)            flags+=(--heading); shift ;;
+        --noheading)             flags+=(--no-heading); shift ;;
+        --break)                 shift ;;       # rg does this by default
+        --nobreak)               shift ;;       # no direct rg equivalent
+        --group)                 flags+=(--heading); shift ;;
+        --nogroup)               flags+=(--no-heading); shift ;;
+        --filename)              shift ;;       # rg does this by default
+        --nofilename)            flags+=(--no-filename); shift ;;
+        --numbers)               flags+=(--line-number); shift ;;
+        --nonumbers)             flags+=(--no-line-number); shift ;;
+        -l|--files-with-matches) flags+=(--files-with-matches); shift ;;
+        -L|--files-without-matches)
+                                 flags+=(--files-without-match); shift ;;
+        -o|--only-matching)      flags+=(--only-matching); shift ;;
+        --passthrough|--passthru) flags+=(--passthru); shift ;;
+        --print-long-lines)      shift ;;       # rg prints long lines by default
+        --silent)                flags+=(--no-messages); shift ;;
+        --stats)                 flags+=(--stats); shift ;;
+        --stats-only)            flags+=(--stats --quiet); shift ;;
+        --vimgrep)               flags+=(--vimgrep); shift ;;
+        -0|--null|--print0)      flags+=(--null); shift ;;
+
+        # ── Filename search mode ──────────────────────────────────────
+        -g|--filename-pattern)
+            filename_mode=true
+            filename_pattern="$2"
+            shift 2 ;;
+
+        # ── File filtering ────────────────────────────────────────────
+        -G|--file-search-regex)
+            # ag uses regex; rg uses globs. Try to convert simple patterns,
+            # fall back to pipe-based filtering for true regex.
+            file_search_regex="$2"
+            if ag_regex_to_glob "$file_search_regex"; then
+                flags+=(-g "$AG_GLOB_RESULT")
+                file_search_regex=""
+            fi
+            shift 2 ;;
+        --ignore)
+            flags+=(--glob "!$2"); shift 2 ;;
+        --ignore-dir)
+            flags+=(--glob "!$2"); shift 2 ;;
+        -p|--path-to-ignore)
+            flags+=(--ignore-file "$2"); shift 2 ;;
+
+        # ── Search options ────────────────────────────────────────────
+        -a|--all-types)          flags+=(--no-ignore --binary); shift ;;
+        --depth)
+            flags+=(--max-depth "$2"); shift 2 ;;
+        -f|--follow)             flags+=(--follow); shift ;;
+        -F|--fixed-strings)      flags+=(--fixed-strings); shift ;;
+        --hidden)                flags+=(--hidden); shift ;;
+        -i|--ignore-case)        flags+=(--ignore-case); shift ;;
+        -m|--max-count)
+            flags+=(--max-count "$2"); shift 2 ;;
+        --one-device)            flags+=(--one-file-system); shift ;;
+        -Q|--literal)            flags+=(--fixed-strings); shift ;;
+        -s|--case-sensitive)     flags+=(--case-sensitive); shift ;;
+        -S|--smart-case)         flags+=(--smart-case); shift ;;
+        --search-binary)         flags+=(--binary); shift ;;
+        -t|--all-text)           flags+=(--no-ignore); shift ;;
+        -u|--unrestricted)       flags+=(-u -u -u); shift ;;
+        -U|--skip-vcs-ignores)   flags+=(--no-ignore-vcs); shift ;;
+        -v|--invert-match)       flags+=(--invert-match); shift ;;
+        -w|--word-regexp)        flags+=(--word-regexp); shift ;;
+        -W|--width)
+            flags+=(--max-columns "$2"); shift 2 ;;
+        -z|--search-zip)         flags+=(--search-zip); shift ;;
+
+        # ── List file types ───────────────────────────────────────────
+        --list-file-types)
+            /opt/homebrew/bin/ag --list-file-types
+            exit $? ;;
+
+        # ── Passthrough & positional ──────────────────────────────────
+        --)  shift; positionals+=("$@"); break ;;
+        -*)
+            # Try as an ag file type flag (e.g. --python, --java)
+            type_name="${1#--}"
+            if [[ "$1" == --* ]] && map_file_type "$type_name"; then
+                shift
+            else
+                echo "ag shim: unsupported option: $1" >&2
+                exit 1
+            fi ;;
+        *)   positionals+=("$1"); shift ;;
+    esac
+done
+
+if $filename_mode; then
+    # ag -g prints filenames matching a regex; rg --files lists files
+    rg --files ${flags[@]+"${flags[@]}"} ${positionals[@]+"${positionals[@]}"} | rg "$filename_pattern"
+elif [[ -n "$file_search_regex" ]]; then
+    # ag -G restricts search to files whose names match a regex.
+    # Pre-filter the file list, then search only those files.
+    pattern="${positionals[0]}"
+    paths=("${positionals[@]:1}")
+    rg --files ${paths[@]+"${paths[@]}"} \
+        | rg "$file_search_regex" \
+        | tr '\n' '\0' \
+        | xargs -0 rg ${flags[@]+"${flags[@]}"} -- "$pattern"
+else
+    exec rg ${flags[@]+"${flags[@]}"} -- ${positionals[@]+"${positionals[@]}"}
+fi

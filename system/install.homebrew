@@ -14,7 +14,7 @@ lolcat
 moreutils
 pkgdiff
 readline
-the_silver_searcher
+ripgrep
 tree
 wget
 xmlstarlet

@@ -275,7 +275,7 @@ while [[ $# -gt 0 ]]; do
 
         # ── List file types ───────────────────────────────────────────
         --list-file-types)
-            /opt/homebrew/bin/ag --list-file-types
+            rg --type-list
             exit $? ;;
 
         # ── Passthrough & positional ──────────────────────────────────

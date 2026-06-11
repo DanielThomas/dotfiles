@@ -263,6 +263,7 @@ while [[ $# -gt 0 ]]; do
         -Q|--literal)            flags+=(--fixed-strings); shift ;;
         -s|--case-sensitive)     flags+=(--case-sensitive); shift ;;
         -S|--smart-case)         flags+=(--smart-case); shift ;;
+        -D|--debug)              flags+=(--debug); shift ;;
         --search-binary)         flags+=(--binary); shift ;;
         -t|--all-text)           flags+=(--no-ignore); shift ;;
         -u|--unrestricted)       flags+=(-u -u -u); shift ;;

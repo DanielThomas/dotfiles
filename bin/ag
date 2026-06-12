@@ -39,6 +39,14 @@ file_search_regex=""  # ag -G: restrict search to files matching regex
 # Returns 0 if the argument looks like a decimal number.
 is_number() { [[ ${1:-} =~ ^[0-9]+$ ]]; }
 
+# Assert that an option has a required argument.
+need_arg() {
+    if [[ $# -lt 2 ]]; then
+        echo "ag shim: $1 requires an argument" >&2
+        exit 1
+    fi
+}
+
 # Try to convert a simple ag file-search regex to an rg glob.
 # Sets AG_GLOB_RESULT and returns 0 on success, 1 if the regex is
 # too complex for a reliable glob conversion.
@@ -228,12 +236,14 @@ while [[ $# -gt 0 ]]; do
 
         # ── Filename search mode ──────────────────────────────────────
         -g|--filename-pattern)
+            need_arg "$1" ${2+"$2"}
             filename_mode=true
             filename_pattern="$2"
             shift 2 ;;
 
         # ── File filtering ────────────────────────────────────────────
         -G|--file-search-regex)
+            need_arg "$1" ${2+"$2"}
             # ag uses regex; rg uses globs. Try to convert simple patterns,
             # fall back to pipe-based filtering for true regex.
             file_search_regex="$2"
@@ -243,21 +253,26 @@ while [[ $# -gt 0 ]]; do
             fi
             shift 2 ;;
         --ignore)
+            need_arg "$1" ${2+"$2"}
             flags+=(--glob "!$2"); shift 2 ;;
         --ignore-dir)
+            need_arg "$1" ${2+"$2"}
             flags+=(--glob "!$2"); shift 2 ;;
         -p|--path-to-ignore)
+            need_arg "$1" ${2+"$2"}
             flags+=(--ignore-file "$2"); shift 2 ;;
 
         # ── Search options ────────────────────────────────────────────
         -a|--all-types)          flags+=(--no-ignore --binary); shift ;;
         --depth)
+            need_arg "$1" ${2+"$2"}
             flags+=(--max-depth "$2"); shift 2 ;;
         -f|--follow)             flags+=(--follow); shift ;;
         -F|--fixed-strings)      flags+=(--fixed-strings); shift ;;
         --hidden)                flags+=(--hidden); shift ;;
         -i|--ignore-case)        flags+=(--ignore-case); shift ;;
         -m|--max-count)
+            need_arg "$1" ${2+"$2"}
             flags+=(--max-count "$2"); shift 2 ;;
         --one-device)            flags+=(--one-file-system); shift ;;
         -Q|--literal)            flags+=(--fixed-strings); shift ;;
@@ -271,6 +286,7 @@ while [[ $# -gt 0 ]]; do
         -v|--invert-match)       flags+=(--invert-match); shift ;;
         -w|--word-regexp)        flags+=(--word-regexp); shift ;;
         -W|--width)
+            need_arg "$1" ${2+"$2"}
             flags+=(--max-columns "$2"); shift 2 ;;
         -z|--search-zip)         flags+=(--search-zip); shift ;;
 

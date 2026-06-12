@@ -294,6 +294,11 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+if ! $filename_mode && [[ ${#positionals[@]} -eq 0 ]]; then
+    echo "ag shim: no PATTERN specified" >&2
+    exit 1
+fi
+
 if $filename_mode; then
     # ag -g prints filenames matching a regex; rg --files lists files
     rg --files ${flags[@]+"${flags[@]}"} ${positionals[@]+"${positionals[@]}"} | rg "$filename_pattern"

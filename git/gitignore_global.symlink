@@ -11,3 +11,4 @@ out/
 .claude/*.local.json
 .claude/*.local.md
 .claude/scheduled_tasks.lock
+.pi/
